@@ -18,13 +18,15 @@
     AllowsTransparency="True"
     Icon="pack://application:,,,/LInjector;component/LInjector.ico"
     Background="Transparent"
+    StateChanged="Window_StateChanged"
+    SourceInitialized="Window_SourceInitialized"
     Loaded="Window_Loaded">
 
     <shell:WindowChrome.WindowChrome>
-        <shell:WindowChrome CaptionHeight="0" UseAeroCaptionButtons="True" NonClientFrameEdges="None" ResizeBorderThickness="25"/>
+        <shell:WindowChrome CaptionHeight="35" UseAeroCaptionButtons="True" NonClientFrameEdges="None" ResizeBorderThickness="25" x:Name="wChromeShell"/>
     </shell:WindowChrome.WindowChrome>
 
-    <Grid x:Name="HolderGrid" MinWidth="655" MinHeight="455" Margin="0">
+    <Grid x:Name="HolderGrid" MinWidth="615" MinHeight="415" Margin="0">
 
     </Grid>
 </Window>

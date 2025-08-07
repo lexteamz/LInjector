@@ -43,7 +43,7 @@ namespace LInjector.Pages.Popups
                         {
                             Text = icon,
                             FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                            FontSize = 18,
+                            FontSize = 15,
                             Margin = new Thickness(0, 0, 15, 0),
                             Foreground = TemplateButton.Foreground,
                             HorizontalAlignment = HorizontalAlignment.Left,
@@ -59,8 +59,7 @@ namespace LInjector.Pages.Popups
                             FontSize = 13,
                             Foreground = TemplateButton.Foreground,
                             HorizontalAlignment = HorizontalAlignment.Stretch,
-                            FontFamily = new FontFamily("Arial")
-                            //FontWeight = FontWeight.FromOpenTypeWeight(300)
+                            FontFamily = new FontFamily("Microsoft YaHei UI"),
                         }
                     }
                 }
@@ -94,25 +93,41 @@ namespace LInjector.Pages.Popups
             ((StackPanel)TemplateButton.Parent).Children.Add(newItem);
         }
 
+        private bool isClosingRequested;
+
+        private void CloseContextMenu()
+        {
+            if (isClosingRequested) return;
+
+            isClosingRequested = true;
+            SelectedText = string.Empty;
+            Hide();
+            Close();
+        }
+
         public static string ShowMenu(System.Drawing.Point locationInScreen, params MenuItemOption[] options)
         {
-            var contextMenu = new LIContextMenuStrip();
+            var contextMenu = new LIContextMenuStrip()
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Owner = Shared.mainWindow!,
+                Left = locationInScreen.X,
+                Top = locationInScreen.Y,
+            };
 
             foreach (var option in options)
             {
                 contextMenu.Add(option.Text, option.Icon, option.ClickHandler);
             }
 
-            contextMenu.WindowStartupLocation = WindowStartupLocation.Manual;
-            contextMenu.Left = locationInScreen.X;
-            contextMenu.Top = locationInScreen.Y;
-
             contextMenu.TemplateButton.Visibility = Visibility.Collapsed;
-            contextMenu.Owner = Shared.mainWindow;
 
-            contextMenu.ShowDialog();
+            contextMenu.LostFocus += (_, _) => contextMenu.CloseContextMenu();
 
-            return contextMenu.SelectedText!;
+            contextMenu.Show();
+            contextMenu.Activate();
+
+            return contextMenu.SelectedText ?? string.Empty;
         }
     }
 }

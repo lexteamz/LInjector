@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
 using LInjector.Pages;
 using LInjector.Windows;
@@ -7,6 +8,13 @@ namespace LInjector.Classes
 {
     public static class Shared
     {
+        [DllImport("user32.dll")]
+        private static extern uint SetWindowDisplayAffinity(IntPtr hwnd, uint dwAffinity);
+
+        private const uint WDA_NONE = 0x00000000;
+        private const uint WDA_MONITOR = 0x00000001;
+        private const uint WDA_EXCLUDEFROMCAPTURE = 0x00000011;
+
         public static MainWindow? mainWindow = null;
         public static MainView? mainView = null;
 
@@ -23,6 +31,18 @@ namespace LInjector.Classes
                 });
             }
             catch { }
+        }
+
+        public static void SetWindowCaptureProtection(IntPtr hwnd, bool protect)
+        {
+            if (hwnd == IntPtr.Zero) return;
+
+            uint affinity = protect ? WDA_EXCLUDEFROMCAPTURE : WDA_NONE;
+            uint result = SetWindowDisplayAffinity(hwnd, affinity);
+
+            if (result == 0)
+                if (protect)
+                    SetWindowDisplayAffinity(hwnd, WDA_MONITOR);
         }
     }
 

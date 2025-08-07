@@ -60,7 +60,7 @@
                 </EventTrigger>
             </Rectangle.Triggers>
         </Rectangle>
-        <Image x:Name="LInjectorIcon" HorizontalAlignment="Center" Height="300" Source="pack://application:,,,/LInjector;component/Resources/linj_shadow.png" VerticalAlignment="Center" Width="300" Stretch="Fill" Margin="800 0 0 0"/>
-        <!--<elem:WebPplayer x:Name="spritePlayer" HorizontalAlignment="Center" Height="350" VerticalAlignment="Center" Width="350" Margin="800 0 0 0"/>-->
+        <Image x:Name="LInjectorIcon" HorizontalAlignment="Center" Width="300" Height="300" Source="pack://application:,,,/LInjector;component/Resources/linj_shadow.png" VerticalAlignment="Center" Stretch="Fill" Margin="950 0 0 0" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+        <!--<elem:WebPplayer x:Name="spritePlayer" HorizontalAlignment="Center" Height="350" VerticalAlignment="Center" Width="350" Margin="800 0 0 0"  RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>-->
     </Grid>
 </Window>

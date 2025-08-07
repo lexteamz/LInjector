@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using LInjector.Classes;
@@ -48,6 +49,7 @@ namespace LInjector.Windows
 
         public Splash()
         {
+
             string[] arguments = Environment.GetCommandLineArgs();
             foreach (string arg in arguments)
             {
@@ -82,17 +84,29 @@ namespace LInjector.Windows
                 StartupHandler.PlayStartupSound(RandomEvent);
             }
 
-            if (!(Themes.LookColor("_SplashColor1") && Themes.LookColor("_SplashColor2") && Themes.LookColor("PrimaryColor") && Themes.LookColor("SecondaryColor") && Themes.LookColor("TertiaryColor") && Themes.LookColor("Text") && Themes.LookColor("SecondaryText")))
+            Dictionary<string, string> defaultThemeValues = new()
             {
-                Themes.SetColor("_SplashColor1", "#FF460B80");
-                Themes.SetColor("_SplashColor2", "#FF570057");
+                { "_SplashColor1", "#FF460B80" },
+                { "_SplashColor2", "#FF570057" },
+                { "PrimaryColor", "#FF0F0F0F" },
+                { "SecondaryColor", "#FF111111" },
+                { "TertiaryColor", "#FF141414" },
+                { "Text", "#FFFFFFFF" },
+                { "SecondaryText", "#FFD3D3D3" },
+                { "WindowOpacity", "1" },
+                { "BackgroundLocation", "https://excel.lexploits.top/extra/default_background.jpg" },
+                { "BackgroundOpacity", "0" },
+                { "BackgroundBlurRadius", "0" },
+                { "EditorTransparency_Override", "1" }
+            };
 
-                Themes.SetColor("PrimaryColor", "#FF0F0F0F");
-                Themes.SetColor("SecondaryColor", "#FF111111");
-                Themes.SetColor("TertiaryColor", "#FF141414");
-
-                Themes.SetColor("Text", "#FFFFFFFF");
-                Themes.SetColor("SecondaryText", "#FFD3D3D3");
+            bool needsDefaultValues = defaultThemeValues.Keys.Any(key => !Themes.LookColor(key));
+            if (needsDefaultValues)
+            {
+                foreach (var theme in defaultThemeValues)
+                {
+                    Themes.SetColor(theme.Key, theme.Value);
+                }
             }
 
             InitializeComponent();
@@ -136,6 +150,8 @@ namespace LInjector.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Shared.SetWindowCaptureProtection(new WindowInteropHelper(this).Handle, (bool)SettingsWrapper.Read("hide_capture"));
+
             GradientStop1.Color = ParseColor(Themes.GetColor("_SplashColor1"));
             GradientStop2.Color = ParseColor(Themes.GetColor("_SplashColor2"));
 
@@ -146,7 +162,7 @@ namespace LInjector.Windows
             RGBTime!.Start();
 
             ObjectShift(TimeSpan.FromSeconds(1), LInjectorIcon, LInjectorIcon.Margin, new Thickness(0, 0, 0, 0));
-            ////spritePlayer.LoadSpriteSheet("pack://application:,,,/LInjector;component/Resources/animated_spritesheet.png", 256, 256, 600, 30, 20, 3); /*set the 'animated_spritesheet.png file as Resource */
+            //spritePlayer.LoadSpriteSheet("pack://application:,,,/LInjector;component/Resources/animated_spritesheet.png", 256, 256, 600, 30, 20, 3); /*set the 'animated_spritesheet.png file as Resource */
             //ObjectShift(TimeSpan.FromSeconds(1), spritePlayer, spritePlayer.Margin, new Thickness(0, 0, 0, 0));
         }
 

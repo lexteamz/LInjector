@@ -39,7 +39,7 @@ namespace LInjector.Pages.Popups
             ContentReturn.Focus();
         }
 
-        public static string? ShowInputDialog(string caption, string text)
+        public static string? ShowInputDialog(string caption, string text, bool useBrowseButton = false)
         {
             InputText inputTextWindow = new()
             {
@@ -48,6 +48,8 @@ namespace LInjector.Pages.Popups
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Shared.mainWindow
             };
+
+            inputTextWindow.BrowseFileButton.Visibility = useBrowseButton ? Visibility.Visible : Visibility.Collapsed;
 
             bool? dialogResult = inputTextWindow.ShowDialog();
             return dialogResult == true ? inputTextWindow.ContentReturn.Text : null;
@@ -60,6 +62,7 @@ namespace LInjector.Pages.Popups
 
         public void OnCloseFadeoutCompleted(object sender, EventArgs e)
         {
+            this.Hide();
             this.Close();
         }
 
@@ -67,22 +70,21 @@ namespace LInjector.Pages.Popups
         {
             // Fade-out animation, pretty cool.
             Storyboard fadeOutStoryboard = new();
-            DoubleAnimation fadeOutAnimation =
-                new()
-                {
-                    From = this.Opacity,
-                    To = 0,
-                    Duration = TimeSpan.FromSeconds(0.10)
-                };
+            DoubleAnimation fadeOutAnimation = new()
+            {
+                From = this.Opacity,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.10)
+            };
             fadeOutStoryboard.Children.Add(fadeOutAnimation);
             Storyboard.SetTarget(fadeOutAnimation, this);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath(Window.OpacityProperty));
             fadeOutStoryboard.Completed += OnCloseFadeoutCompleted!;
             fadeOutStoryboard.Begin();
         }
+
         private void MaximizeButton_Click(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
         private void MinimizeButton_Click(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Minimized;
-        private void Button_Click_1(object sender, RoutedEventArgs e) => ExitButton_Click(null, null);
 
         private void Window_SourceInitialized(object sender, EventArgs e)
         {
@@ -91,19 +93,58 @@ namespace LInjector.Pages.Popups
             _ = SetWindowLong(hwnd, GWL_STYLE, value & ~WS_MAXIMIZEBOX);
         }
 
-        private void Button_Click(object? sender, RoutedEventArgs? e)
+        private void OkayButton_Click(object? sender, RoutedEventArgs? e)
         {
-            if (string.IsNullOrEmpty(ContentReturn.Text)) return;
+            try
+            {
+                if (string.IsNullOrEmpty(ContentReturn.Text)) return;
 
-            Result = ContentReturn.Text;
-            this.DialogResult = true;
-            ExitButton_Click(null, null);
+                Result = ContentReturn.Text;
+
+                if (this.Owner != null)
+                {
+                    this.DialogResult = true;
+                }
+
+                ExitButton_Click(null, null);
+            }
+            catch
+            {
+            }
+        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e) => ExitButton_Click(sender, e);
+
+        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var openFile = new OpenFileDialog()
+                {
+                    Filter = "All Files (*.*)|*.*",
+                    Title = "Select a file",
+                    Multiselect = false
+                };
+
+                if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ContentReturn.Text = openFile.FileName;
+                    OkayButton_Click(null, null);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void ContentReturn_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-                Button_Click(null, null);
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+                OkayButton_Click(null, null);
+
+            if (e.Key == Key.Escape)
+                ExitButton_Click(null, null);
         }
     }
 }

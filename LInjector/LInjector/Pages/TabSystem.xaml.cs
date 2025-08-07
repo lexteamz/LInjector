@@ -202,7 +202,7 @@ namespace LInjector.Pages
                 Point defPnt = new();
                 GetCursorPos(ref defPnt);
 
-                string selectedOption = LIContextMenuStrip.ShowMenu(defPnt, options);
+                LIContextMenuStrip.ShowMenu(defPnt, options);
             }
         }
 

@@ -14,473 +14,556 @@
         <Border.Effect>
             <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="1" x:Name="HarderBetterFasterStronger" Direction="0" RenderingBias="Quality"/>
         </Border.Effect>
-        <Grid ClipToBounds="True" Background="{DynamicResource SecondaryColor}">
-            <Grid Panel.ZIndex="2">
-                <Ellipse Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False">
-                    <Ellipse.Effect>
-                        <BlurEffect Radius="100"/>
-                    </Ellipse.Effect>
-                    <Ellipse.Fill>
-                        <RadialGradientBrush GradientOrigin="0,0" Center="0,0" RadiusX="1" RadiusY="1" Opacity="0.35">
-                            <GradientStop Color="{DynamicResource _SplashColor1}" Offset="-0.1" x:Name="ThomasShelbyRadialGradient"/>
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Grid>
-            <Grid ClipToBounds="True" Background="Transparent" MouseDown="DragWnd" Panel.ZIndex="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35" MinHeight="35" MaxHeight="35"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" MouseDown="DragWnd" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1">
-                    <Border Padding="0 0 0 0" MouseDown="DragWnd" Background="Transparent">
-                        <Grid Margin="0" MouseDown="DragWnd">
-                            <Grid HorizontalAlignment="Left" MouseDown="DragWnd" Panel.ZIndex="2">
-                                <Image Source="pack://application:,,,/LInjector;component/Resources/LInjectorr.png" MaxHeight="25" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="DragWnd"/>
-                            </Grid>
-                            <Grid>
-                                <StackPanel Orientation="Horizontal" Margin="30,0,0,0" MouseDown="DragWnd" x:Name="ContextMenuHolder">
+        <Grid Background="{DynamicResource SecondaryColor}" ClipToBounds="True">
+            <Image VerticalAlignment="Stretch" HorizontalAlignment="Center" Source="https://excel.lexploits.top/extra/default_background.jpg" Opacity="0" x:Name="WindowBackgroundImage" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased">
+                <Image.Effect>
+                    <BlurEffect Radius="0" x:Name="WindowBackgroundBlur"/>
+                </Image.Effect>
+            </Image>
+            <Grid ClipToBounds="True" Background="Transparent">
+                <Grid Panel.ZIndex="2">
+                    <Ellipse Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False" x:Name="mango_ellipse">
+                        <Ellipse.Effect>
+                            <BlurEffect Radius="100"/>
+                        </Ellipse.Effect>
+                        <Ellipse.Fill>
+                            <RadialGradientBrush GradientOrigin="0,0" Center="0,0" RadiusX="1" RadiusY="1" Opacity="0.35">
+                                <GradientStop Color="{DynamicResource _SplashColor1}" Offset="-0.1" x:Name="ThomasShelbyRadialGradient"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+                <Grid ClipToBounds="True" Background="Transparent" MouseDown="DragWnd" Panel.ZIndex="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" MinHeight="35" MaxHeight="35"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" MouseDown="DragWnd" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1">
+                        <Border Padding="0 0 0 0" MouseDown="DragWnd" Background="Transparent">
+                            <Grid Margin="0" MouseDown="DragWnd">
+                                <Grid HorizontalAlignment="Left" MouseDown="DragWnd" Panel.ZIndex="2">
+                                    <Image Source="pack://application:,,,/LInjector;component/Resources/LInjector.png" MaxHeight="27" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="DragWnd" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                </Grid>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0" MouseDown="DragWnd" x:Name="ContextMenuHolder">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                <Setter Property="Padding" Value="2.5"/>
+                                                <Setter Property="FontSize" Value="11"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource SecondaryText}"/>
+                                                <Setter Property="Height" Value="Auto"/>
+                                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <Label Panel.ZIndex="2" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="14" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                                     <StackPanel.Resources>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                            <Setter Property="Padding" Value="2.5"/>
-                                            <Setter Property="FontSize" Value="11"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource SecondaryText}"/>
-                                            <Setter Property="Height" Value="Auto"/>
-                                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+                                            <Setter Property="FontSize" Value="10"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                                            <Setter Property="Width" Value="Auto"/>
                                             <Setter Property="Background" Value="Transparent"/>
                                             <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
+                                            <EventSetter Event="Click" Handler="ContextMenuClick"/>
                                         </Style>
                                     </StackPanel.Resources>
-                                    <Label Panel.ZIndex="2" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="14" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}"/>
+
+                                    <Button Content="&#xE921;" x:Name="Minimise"/>
+                                    <Button Content="&#xE923;" x:Name="Restore" IsEnabled="True"/>
+                                    <Button Content="&#xE8BB;" x:Name="Close"/>
+
                                 </StackPanel>
                             </Grid>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <StackPanel.Resources>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                        <Setter Property="Margin" Value="0"/>
-                                        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
-                                        <Setter Property="FontSize" Value="10"/>
-                                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-                                        <Setter Property="Width" Value="Auto"/>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
-                                        <EventSetter Event="Click" Handler="ContextMenuClick"/>
-                                    </Style>
-                                </StackPanel.Resources>
-
-                                <Button Content="&#xE921;" x:Name="Minimise"/>
-                                <Button Content="&#xE923;" x:Name="Restore" IsEnabled="False"/>
-                                <Button Content="&#xE8BB;" x:Name="Close"/>
-
-                            </StackPanel>
-                        </Grid>
+                        </Border>
                     </Border>
-                </Border>
-                <Border Grid.Row="1" Background="Transparent" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.2">
-                    <Grid x:Name="trakas_hdspm">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="45"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0" Width="45" VerticalAlignment="Stretch">
-                            <Grid>
-                                <Grid.Resources>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                        <Setter Property="Margin" Value="0 5"/>
-                                        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-                                        <Setter Property="FontSize" Value="9"/>
-                                        <Setter Property="Padding" Value="5"/>
-                                        <Setter Property="Height" Value="35"/>
-                                        <Setter Property="Width" Value="35"/>
-                                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Opacity" Value="0.75"/>
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
-                                        <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
-                                        <EventSetter Event="Click" Handler="NavigationGridClick"/>
-                                    </Style>
-                                </Grid.Resources>
-
-                                <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0.1 0" x:Name="NavigationIndexers" Background="Transparent">
-                                    <Grid>
-                                        <Grid VerticalAlignment="Top">
-                                            <Button x:Name="Editor" BorderBrush="{DynamicResource Text}">
-                                                <Button.Content>
-                                                    <Label Content="&#xE7C3;" FontFamily="Segoe Fluent Icons" FontSize="20" Padding="0" Foreground="{DynamicResource Text}"/>
-                                                </Button.Content>
-                                            </Button>
-                                        </Grid>
-                                        <Grid VerticalAlignment="Bottom">
-                                            <Button x:Name="Settings" VerticalAlignment="Bottom" BorderBrush="{DynamicResource Text}">
-                                                <Button.Content>
-                                                    <Label Content="&#xE713;" FontFamily="Segoe Fluent Icons" FontSize="20" Padding="0" Foreground="{DynamicResource Text}"/>
-                                                </Button.Content>
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Grid>
-
-                        <!-- //   SETTINGS GRID   // -->
-                        <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
-                            <TabControl>
-                                <TabControl.ItemContainerStyle>
-                                    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
-                                        <Setter Property="HeaderTemplate">
-                                            <Setter.Value>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding}" Foreground="{DynamicResource Text}" />
-                                                </DataTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-
-                                        <Setter Property="materialDesign:ColorZoneAssist.Background" Value="Transparent"/>
-                                        <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Inverted"/>
-                                        <Setter Property="Margin" Value="5 0"/>
-                                        <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
-
-                                    </Style>
-
-                                </TabControl.ItemContainerStyle>
-
-                                <TabItem Header="Settings">
-                                    <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                                            <StackPanel x:Name="SettingsItemsHolder">
-                                                <StackPanel.Resources>
-                                                    <Style TargetType="Grid">
-                                                        <Setter Property="Margin" Value="10 0"/>
-                                                    </Style>
-                                                    <Style TargetType="Label">
-                                                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-                                                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                                                    </Style>
-                                                </StackPanel.Resources>
-
-
-                                            </StackPanel>
-                                        </ScrollViewer>
-                                    </Border>
-                                </TabItem>
-                                <TabItem Header="Customisation">
-                                    <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
-                                        <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" materialDesign:RippleAssist.IsDisabled="True" materialDesign:ListBoxItemAssist.ShowSelection="False" >
-                                            <StackPanel>
-                                                <Label Content="Splash Screen" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="#460b80" Click="ColorChanged" Tag="_SplashColor1" x:Name="SSC1">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Splash Screen Color 1" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="#570057" Click="ColorChanged" Tag="_SplashColor2" x:Name="SSC2">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Splash Screen Color 2" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel>
-                                                <Label Content="Window" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="{DynamicResource PrimaryColor}" Click="ColorChanged" Tag="PrimaryColor" x:Name="PrimaryColor">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Primary Color (Background)" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="{DynamicResource SecondaryColor}" Click="ColorChanged" Tag="SecondaryColor" x:Name="SecondaryColor">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Secondary Color (Background)" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="{DynamicResource TertiaryColor}" Click="ColorChanged" Tag="TertiaryColor" x:Name="TertiaryColor">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Tertiary Color (Background)" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="{DynamicResource TertiaryColor}" Click="ChangeMonacoBackground" Tag="BackgroundMonacoImg">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                        <Button.Content>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Label Content="&#xE898;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="12"/>
-                                                            </StackPanel>
-                                                        </Button.Content>
-                                                    </Button>
-                                                    <Label Content="Editor Background Image" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>-->
-                                            </StackPanel>
-                                            <StackPanel>
-                                                <Label Content="Text" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="#FFFFFFFF" Click="ColorChanged" Tag="Text" x:Name="Text">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Text (Normal)" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <Button Width="20" Height="20" Background="#FFFFFFFF" Click="ColorChanged" Tag="SecondaryText" x:Name="SecondaryText">
-                                                        <Button.Template>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                    <Label Content="Text (Secondary)" Foreground="{DynamicResource Text}"/>
-
-                                                </StackPanel>
-                                                <StackPanel>
-                                                    <Button Foreground="White" Content="Reset to Default" ToolTip="Reset Theme" Margin="0,6,0,0" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FF141414" Padding="5" BorderBrush="#00744CE0" Click="ResetTheme_Click" Height="32" materialDesign:RippleAssist.IsDisabled="False"/>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </ListBox>
-                                    </Border>
-                                </TabItem>
-                                <TabItem Header="Credits">
-                                    <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5" ClipToBounds="True">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Grid Grid.Column="0" Margin="5 0">
-                                                <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                                    <Label Content="Developers" FontWeight="Bold" Foreground="{DynamicResource Text}" FontSize="18" Margin="2.5 0 0 0"/>
-
-                                                    <ListBox materialDesign:RippleAssist.IsDisabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" Focusable="False" materialDesign:ListBoxItemAssist.ShowSelection="False">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <Image Source="https://avatar-cyan.vercel.app/api/pfp/686765279363334205/image" Width="100px" Height="100px" VerticalAlignment="Center"/>
-                                                            <StackPanel>
-                                                                <Label Content="Excel ⭑.ᐟ" Foreground="{DynamicResource Text}" FontWeight="Bold" FontSize="16"/>
-                                                                <StackPanel>
-                                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                                        <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Code" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
-                                                                        <Label Content="Programming"/>
-                                                                    </StackPanel>
-                                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                                                                        <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Drawing" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
-                                                                        <Label Content="UI/UX Development"/>
-                                                                    </StackPanel>
-                                                                </StackPanel>
-                                                            </StackPanel>
-                                                        </StackPanel>
-
-
-                                                    </ListBox>
-                                                </StackPanel>
-
-
-                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 5">
-                                                    <Label Content="This project is free, nonprofit and open-source under the MIT License on GitHub." HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
-                                                    <TextBlock TextDecorations="Underline" Text="GitHub Repository" Margin="5 0 0 0" MouseDown="GitHub_onClick" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
-                                                    <TextBlock TextDecorations="Underline" Text="Discord Server" Margin="5 0 0 0" MouseDown="Discord_MouseDown" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
-                                                </StackPanel>
-
-                                                <TextBlock TextDecorations="None" x:Name="VersionPlaceHolderCredits" Text="Version" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="{DynamicResource SecondaryText}"/>
-                                            </Grid>
-
-                                            <!--<Grid Grid.Column="1"></Grid>-->
-                                        </Grid>
-                                    </Border>
-                                </TabItem>
-                            </TabControl>
-                        </Grid>
-
-                        <!-- // MAIN CONTENT GRID // -->
-                        <Grid Grid.Column="1" x:Name="Section_Editor" Visibility="Collapsed">
+                    <Border Grid.Row="1" Background="Transparent" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0">
+                        <Grid x:Name="trakas_hdspm">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="140" x:Name="ScriptListDimensions"/>
+                                <ColumnDefinition Width="45"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
-                                <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0.1 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40" />
-                                            <RowDefinition Height="30" />
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
+                            <Grid Grid.Column="0" Width="45" VerticalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Margin" Value="0 5"/>
+                                            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                                            <Setter Property="FontSize" Value="9"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                            <Setter Property="Height" Value="35"/>
+                                            <Setter Property="Width" Value="35"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Opacity" Value="0.75"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
+                                            <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
+                                            <EventSetter Event="Click" Handler="NavigationGridClick"/>
+                                        </Style>
+                                    </Grid.Resources>
 
-                                        <Grid Grid.Row="0">
-                                            <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1">
-                                                <Grid>
-                                                    <Grid>
-                                                        <Label Content="root/scripts" VerticalAlignment="Center" FontWeight="Bold" x:Name="ScriptDirLabel" Foreground="{DynamicResource Text}"/>
-                                                        <Button HorizontalAlignment="Right" Background="Transparent" Foreground="{DynamicResource Text}" Content=". . ." BorderThickness="0" VerticalAlignment="Stretch" Click="ChangeScriptListFolder" VerticalContentAlignment="Center" materialDesign:ButtonAssist.CornerRadius="0" Height="40"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Border>
-                                        </Grid>
-                                        <TextBox Grid.Row="1" Foreground="{DynamicResource Text}" TextChanged="ScriptSearch_TextChanged" x:Name="ScriptSearchBox" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryText}" />
-                                        <Grid Grid.Row="2" ScrollViewer.CanContentScroll="True">
-                                            <ListBox x:Name="NormalStandaloneScriptsHolder" Loaded="NormalStandaloneScriptsHolder_Loaded" SelectionChanged="NormalStandaloneScriptsHolder_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                                                <ListBox.ItemContainerStyle>
-                                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                                        <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"/>
-                                                        <Setter Property="TextBlock.Height" Value="32"/>
-                                                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-                                                    </Style>
-                                                </ListBox.ItemContainerStyle>
-                                            </ListBox>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="300*"/>
-                                    <RowDefinition Height="100*" x:Name="LInjectorConsoleDimensions"/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1" Background="Transparent">
+                                    <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0.1 0" x:Name="NavigationIndexers" Background="Transparent">
                                         <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="35"/>
-                                            </Grid.RowDefinitions>
-                                            <controls:TabSystem Grid.Row="0" x:Name="TabSystem_" IsEnabled="False" Background="Transparent" Visibility="Collapsed" Loaded="TabSystem__Loaded"/>
-                                            <Grid Grid.Row="1" Background="Transparent" VerticalAlignment="Center">
-                                                <Grid VerticalAlignment="Stretch">
-                                                    <Grid.Resources>
-                                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                                            <Setter Property="Margin" Value="0 5"/>
-                                                            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-                                                            <Setter Property="FontSize" Value="9"/>
-                                                            <Setter Property="Padding" Value="5"/>
-                                                            <Setter Property="Height" Value="50"/>
-                                                            <Setter Property="Width" Value="Auto"/>
-                                                            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-                                                            <Setter Property="VerticalAlignment" Value="Center"/>
-                                                            <Setter Property="Background" Value="Transparent"/>
-                                                            <Setter Property="Opacity" Value="1"/>
-                                                            <Setter Property="BorderThickness" Value="0"/>
-                                                            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
-                                                            <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
-                                                        </Style>
-                                                    </Grid.Resources>
-
-                                                    <Grid>
-                                                        <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch">
-                                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-                                                                <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="OpenFileButton"  Click="EditorButtonClick">
-                                                                    <Button.Content>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <Label Content="&#xE8E5;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="16"/>
-                                                                        </StackPanel>
-                                                                    </Button.Content>
-                                                                </Button>
-                                                                <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="SaveFileButton" Click="EditorButtonClick">
-                                                                    <Button.Content>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <Label Content="&#xE792;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="16"/>
-                                                                        </StackPanel>
-                                                                    </Button.Content>
-                                                                </Button>
-                                                                <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" Visibility="Collapsed">
-                                                                    <Button.Content>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <Label FontFamily="Segoe Fluent Icons" Content="&#xE75C;" FontSize="13"/>
-                                                                        </StackPanel>
-                                                                    </Button.Content>
-                                                                </Button>
-                                                            </StackPanel>
-                                                        </Grid>
-
-                                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-                                                                <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="ExecuteButtonMain" Click="EditorButtonClick">
-                                                                    <Button.Content>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <Label FontFamily="Segoe Fluent Icons" Content="&#xF5B0;" FontSize="12" Foreground="{DynamicResource Text}"/>
-                                                                        </StackPanel>
-                                                                    </Button.Content>
-                                                                </Button>
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
+                                            <Grid VerticalAlignment="Top">
+                                                <Button x:Name="Editor" BorderBrush="{DynamicResource Text}">
+                                                    <Button.Content>
+                                                        <Label Content="&#xE7C3;" FontFamily="Segoe Fluent Icons" FontSize="20" Padding="0" Foreground="{DynamicResource Text}"/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Grid>
+                                            <Grid VerticalAlignment="Bottom">
+                                                <Button x:Name="Settings" VerticalAlignment="Bottom" BorderBrush="{DynamicResource Text}">
+                                                    <Button.Content>
+                                                        <Label Content="&#xE713;" FontFamily="Segoe Fluent Icons" FontSize="20" Padding="0" Foreground="{DynamicResource Text}"/>
+                                                    </Button.Content>
+                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Border>
                                 </Grid>
-                                <Grid Grid.Row="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" VerticalAlignment="Top">
+                            </Grid>
+
+                            <!-- //   SETTINGS GRID   // -->
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
+                                <TabControl>
+                                    <TabControl.ItemContainerStyle>
+                                        <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                                            <Setter Property="HeaderTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}" Foreground="{DynamicResource Text}" />
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <Setter Property="materialDesign:ColorZoneAssist.Background" Value="Transparent"/>
+                                            <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Inverted"/>
+                                            <Setter Property="Margin" Value="5 0"/>
+                                            <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
+
+                                        </Style>
+
+                                    </TabControl.ItemContainerStyle>
+
+                                    <TabItem Header="Settings">
+                                        <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                                <StackPanel x:Name="SettingsItemsHolder">
+                                                    <StackPanel.Resources>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="Margin" Value="10 0"/>
+                                                        </Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                        </Style>
+                                                    </StackPanel.Resources>
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="Customisation">
+                                        <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
+                                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" materialDesign:RippleAssist.IsDisabled="True" materialDesign:ListBoxItemAssist.ShowSelection="False" >
+                                                <StackPanel>
+                                                    <Label Content="Splash Screen" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="#460b80" Click="ColorChanged" Tag="_SplashColor1" x:Name="SSC1">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Splash Screen Color 1" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="#570057" Click="ColorChanged" Tag="_SplashColor2" x:Name="SSC2">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Splash Screen Color 2" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Label Content="Window" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="{DynamicResource PrimaryColor}" Click="ColorChanged" Tag="PrimaryColor" x:Name="PrimaryColor">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Primary Color (Background)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="{DynamicResource SecondaryColor}" Click="ColorChanged" Tag="SecondaryColor" x:Name="SecondaryColor">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Secondary Color (Background)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="{DynamicResource TertiaryColor}" Click="ColorChanged" Tag="TertiaryColor" x:Name="TertiaryColor">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Tertiary Color (Background)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="{DynamicResource TertiaryColor}" Click="ChangeWndBackgroundImg" Tag="WndBackgroundImg">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                            <Button.Content>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Label Content="&#xE898;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                                                </StackPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                        <Label Content="Window Image (Background)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical" Margin="10 0 0 5">
+                                                        <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.5 0 0 0" Padding="10 0 0 0">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Button Width="50" Height="20" Background="{DynamicResource TertiaryColor}" x:Name="WindowBackOpacityDragDrop" ToolTip="Drag your mouse" MouseDown="OpacityButton_MouseDown" PreviewMouseDown="OpacityButton_MouseDown" Cursor="Arrow">
+                                                                        <Button.Template>
+                                                                            <ControlTemplate TargetType="Button">
+                                                                                <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75">
+                                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Button.Template>
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityBackValueIndicator"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                    <Label Content="Background Image Opacity" Foreground="{DynamicResource Text}"/>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Button Width="50" Height="20" Background="{DynamicResource TertiaryColor}" x:Name="WindowBackBlurDragDrop" ToolTip="Drag your mouse" MouseDown="OpacityButton_MouseDown" PreviewMouseDown="OpacityButton_MouseDown" Cursor="Arrow">
+                                                                        <Button.Template>
+                                                                            <ControlTemplate TargetType="Button">
+                                                                                <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75">
+                                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Button.Template>
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityBackBlurValueIndicator"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                    <Label Content="Background Image Blur" Foreground="{DynamicResource Text}"/>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Button Width="50" Height="20" Background="{DynamicResource TertiaryColor}" x:Name="EditorTransparencySetting" ToolTip="Drag your mouse" MouseDown="OpacityButton_MouseDown" PreviewMouseDown="OpacityButton_MouseDown" Cursor="Arrow">
+                                                                        <Button.Template>
+                                                                            <ControlTemplate TargetType="Button">
+                                                                                <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75">
+                                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Button.Template>
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="EditorTransparencyValueIndicator"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                    <Label Content="Monaco Editor Opacity" Foreground="{DynamicResource Text}"/>
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="50" Height="20" Background="{DynamicResource TertiaryColor}" x:Name="WindowOpacityDragDrop" Tag="WindowOpacityDragDrop" ToolTip="Drag your mouse" MouseDown="OpacityButton_MouseDown" PreviewMouseDown="OpacityButton_MouseDown" Cursor="Arrow">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                            <Button.Content>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                                                    <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityValueIndicator"/>
+                                                                </StackPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                        <Label Content="Window Opacity" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Label Content="Text" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource Text}"/>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="#FFFFFFFF" Click="ColorChanged" Tag="Text" x:Name="Text">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Text (Normal)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                        <Button Width="20" Height="20" Background="#FFFFFFFF" Click="ColorChanged" Tag="SecondaryText" x:Name="SecondaryText">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.75" CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        <Label Content="Text (Secondary)" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Foreground="White" Content="Export Theme (.reg)" ToolTip="Export Theme" Margin="0,6,0,0" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FF141414" Padding="5" BorderBrush="#00744CE0" Click="ExportTheme_Click" Height="32" materialDesign:RippleAssist.IsDisabled="False"/>
+                                                        <Button Foreground="White" Content="Reset to Default" ToolTip="Reset Theme" Margin="0,6,0,0" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FF141414" Padding="5" BorderBrush="#00744CE0" Click="ResetTheme_Click" Height="32" materialDesign:RippleAssist.IsDisabled="False"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ListBox>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="Credits">
+                                        <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5" ClipToBounds="True">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid Grid.Column="0" Margin="5 0">
+                                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                                        <Label Content="Developers" FontWeight="Bold" Foreground="{DynamicResource Text}" FontSize="18" Margin="2.5 0 0 0"/>
+
+                                                        <ListBox materialDesign:RippleAssist.IsDisabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" Focusable="False" materialDesign:ListBoxItemAssist.ShowSelection="False">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image Source="https://avatar-cyan.vercel.app/api/pfp/686765279363334205/image" Width="100px" Height="100px" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                                                <StackPanel>
+                                                                    <Label Content="Excel ⭑.ᐟ" Foreground="{DynamicResource Text}" FontWeight="Bold" FontSize="16"/>
+                                                                    <StackPanel>
+                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                                            <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Code" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
+                                                                            <Label Content="Programming"/>
+                                                                        </StackPanel>
+                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                                                            <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Drawing" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
+                                                                            <Label Content="UI/UX Development"/>
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </StackPanel>
+
+
+                                                        </ListBox>
+                                                    </StackPanel>
+
+
+                                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                                                        <Label Content="This project is free, nonprofit and open-source under the MIT License on GitHub." HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
+                                                        <TextBlock TextDecorations="Underline" Text="GitHub Repository" Margin="5 0 0 0" MouseDown="GitHub_onClick" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
+                                                        <TextBlock TextDecorations="Underline" Text="Discord Server" Margin="5 0 0 0" MouseDown="Discord_MouseDown" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
+                                                    </StackPanel>
+
+                                                    <TextBlock TextDecorations="None" x:Name="VersionPlaceHolderCredits" Text="Version" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="{DynamicResource SecondaryText}"/>
+                                                </Grid>
+
+                                                <!--<Grid Grid.Column="1"></Grid>-->
+                                            </Grid>
+                                        </Border>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+
+                            <!-- // MAIN CONTENT GRID // -->
+                            <Grid Grid.Column="1" x:Name="Section_Editor" Visibility="Visible">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140*" MaxWidth="180" x:Name="ScriptListDimensions"/>
+                                    <ColumnDefinition Width="400*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0.1 0">
                                         <Grid>
-                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="3 0 0 0">
-                                                <Label Content="Output" FontSize="10" VerticalAlignment="Bottom" Foreground="{DynamicResource SecondaryText}" HorizontalAlignment="Center"/>
-                                                <Rectangle Width="45" Height="1" Fill="{DynamicResource SecondaryText}" HorizontalAlignment="Center" Margin="0 -3 0 0"/>
-                                            </StackPanel>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid Grid.Row="0">
+                                                <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1">
+                                                    <Grid>
+                                                        <Grid>
+                                                            <Label Content="root/scripts" VerticalAlignment="Center" FontWeight="Bold" x:Name="ScriptDirLabel" Foreground="{DynamicResource Text}"/>
+                                                            <Button HorizontalAlignment="Right" Background="Transparent" Foreground="{DynamicResource Text}" Content=". . ." BorderThickness="0" VerticalAlignment="Stretch" Click="ChangeScriptListFolder" VerticalContentAlignment="Center" materialDesign:ButtonAssist.CornerRadius="0" Height="40"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                            </Grid>
+                                            <TextBox Grid.Row="1" Foreground="{DynamicResource Text}" TextChanged="ScriptSearch_TextChanged" x:Name="ScriptSearchBox" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed" AcceptsReturn="False" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource Text}" CaretBrush="{DynamicResource Text}"/>
+                                            <Grid Grid.Row="2" ScrollViewer.CanContentScroll="True">
+                                                <ListBox x:Name="NormalStandaloneScriptsHolder" Loaded="NormalStandaloneScriptsHolder_Loaded" SelectionChanged="NormalStandaloneScriptsHolder_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                                                    <ListBox.ItemContainerStyle>
+                                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                                            <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"/>
+                                                            <Setter Property="TextBlock.Height" Value="32"/>
+                                                            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                                                        </Style>
+                                                    </ListBox.ItemContainerStyle>
+                                                </ListBox>
+                                            </Grid>
                                         </Grid>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="300*"/>
+                                        <RowDefinition Height="80*" MaxHeight="180" x:Name="LInjectorConsoleDimensions"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0.1" Background="Transparent" x:Name="EditorBorder">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="35"/>
+                                                </Grid.RowDefinitions>
+                                                <controls:TabSystem Grid.Row="0" x:Name="TabSystem_" IsEnabled="False" Background="Transparent" Visibility="Collapsed" Loaded="TabSystem__Loaded" GotFocus="EditorGotFocus"/>
+                                                <Grid Grid.Row="1" Background="Transparent" VerticalAlignment="Center">
+                                                    <Grid VerticalAlignment="Stretch">
+                                                        <Grid.Resources>
+                                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                                <Setter Property="Margin" Value="0 5"/>
+                                                                <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                                                                <Setter Property="FontSize" Value="9"/>
+                                                                <Setter Property="Padding" Value="5"/>
+                                                                <Setter Property="Height" Value="50"/>
+                                                                <Setter Property="Width" Value="Auto"/>
+                                                                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                <Setter Property="Background" Value="Transparent"/>
+                                                                <Setter Property="Opacity" Value="1"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
+                                                                <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
+                                                            </Style>
+                                                        </Grid.Resources>
+
+                                                        <Grid>
+                                                            <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                                                    <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="OpenFileButton"  Click="EditorButtonClick">
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label Content="&#xE8E5;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="16"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                    <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="SaveFileButton" Click="EditorButtonClick">
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label Content="&#xE792;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="16"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                    <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" Visibility="Collapsed">
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label FontFamily="Segoe Fluent Icons" Content="&#xE75C;" FontSize="13"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </Grid>
+
+                                                            <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                                                    <Button Foreground="{DynamicResource Text}" HorizontalAlignment="Right" x:Name="ExecuteButtonMain" Click="EditorButtonClick">
+                                                                        <Button.Content>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <Label FontFamily="Segoe Fluent Icons" Content="&#xF5B0;" FontSize="12" Foreground="{DynamicResource Text}"/>
+                                                                            </StackPanel>
+                                                                        </Button.Content>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
                                     </Grid>
-                                    <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0 -10 0 0" Panel.ZIndex="3">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="OutputHolder">
-                                            <TextBox x:Name="OutputLogs" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="3 0 0 0" BorderThickness="0" IsReadOnly="True" Text="Welcome to LInjector!" TextAlignment="Left" Foreground="{DynamicResource SecondaryText}" FontSize="10" FontFamily="Consolas" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxIsMultiLine="True" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.CanContentScroll="True" />
-                                        </ScrollViewer>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" VerticalAlignment="Top">
+                                            <Grid>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="3 0 0 0">
+                                                    <Label Content="Output" FontSize="10" VerticalAlignment="Bottom" Foreground="{DynamicResource SecondaryText}" HorizontalAlignment="Center"/>
+                                                    <Rectangle Width="45" Height="1" Fill="{DynamicResource SecondaryText}" HorizontalAlignment="Center" Margin="0 -3 0 0"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0 -10 0 0" Panel.ZIndex="3">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="OutputHolder">
+                                                <TextBox x:Name="OutputLogs" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="3 0 0 0" BorderThickness="0" IsReadOnly="True" Text="Welcome to LInjector!" TextAlignment="Left" Foreground="{DynamicResource SecondaryText}" FontSize="10" FontFamily="Consolas" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxIsMultiLine="True" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.CanContentScroll="True" />
+                                            </ScrollViewer>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

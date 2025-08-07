@@ -34,6 +34,9 @@ namespace LInjector.Classes
             EditorReady?.Invoke(this, new EventArgs());
             SetText(ToSetText);
             SetTheme($"\"{(SettingsWrapper.Read("monaco_theme")!.ToObject<string[]>())[0]}\"");
+            double wndOpacity = double.Parse(Themes.GetColor("WindowOpacity")!);
+            double editorOpacity = double.Parse(Themes.GetColor("EditorTransparency_Override"));
+            ChangeEditorTransparency(wndOpacity != 1.0 ? wndOpacity : editorOpacity);
             if (SettingsWrapper.Read("editor_blurred") == true) EnableBlur(); else DisableBlur();
         }
 
@@ -154,6 +157,12 @@ namespace LInjector.Classes
         {
             if (IsDOMLoaded)
                 ExecuteScriptAsync("DisableAutoComplete();");
+        }
+
+        public void ChangeEditorTransparency(double opacity)
+        {
+            if (IsDOMLoaded)
+                ExecuteScriptAsync($"ChangeEditorTransparency({opacity});");
         }
     }
 

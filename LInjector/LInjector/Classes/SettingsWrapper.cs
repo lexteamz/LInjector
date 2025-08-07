@@ -46,6 +46,13 @@ namespace LInjector.Classes
                 }
             },
             {
+                "hide_capture", new
+                {
+                    value = false,
+                    description = "Hide from Capture"
+                }
+            },
+            {
                 "discord_rpc", new
                 {
                     value = false,

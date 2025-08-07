@@ -209,7 +209,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
-                        <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0.1 0" VerticalAlignment="Center">
+                        <Border BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0" VerticalAlignment="Center">
                             <Grid x:Name="maingrid" Margin="0,0,5,0" PreviewMouseRightButtonUp="Maingrid_PreviewMouseRightButtonUp" VerticalAlignment="Center">
                                 <Border CornerRadius="3 3 3 3" Name="Mainn" Width="Auto" Height="40" BorderThickness="0" Background="{TemplateBinding Background}" Margin="0,0,0,0" VerticalAlignment="Center">
                                     <Grid>

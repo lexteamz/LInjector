@@ -10,7 +10,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None"
-        Height="150" Width="210"
+        Height="Auto" Width="210"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
@@ -21,11 +21,11 @@
         <shell:WindowChrome CaptionHeight="0" UseAeroCaptionButtons="True" NonClientFrameEdges="None" ResizeBorderThickness="0"/>
     </shell:WindowChrome.WindowChrome>
     <Grid>
-        <Grid Margin="0" Background="Transparent">
+        <Grid Margin="10" Background="Transparent">
             <Border ClipToBounds="False" Background="Transparent" CornerRadius="5" x:Name="MainBorder">
                 <Grid>
                     <StackPanel Orientation="Vertical" Background="Transparent" x:Name="xdddddlol">
-                        <Button x:Name="TemplateButton" HorizontalAlignment="Stretch" Height="Auto" HorizontalContentAlignment="Left" Foreground="{DynamicResource Text}" Background="{DynamicResource PrimaryColor}" BorderThickness="0" materialDesign:ShadowAssist.Darken="False">
+                        <Button x:Name="TemplateButton" HorizontalAlignment="Stretch" Height="Auto" HorizontalContentAlignment="Left" Foreground="{DynamicResource SecondaryText}" Background="{DynamicResource SecondaryColor}" BorderThickness="0" materialDesign:ShadowAssist.Darken="False">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="" FontFamily="Segoe MDL2 Assets" FontSize="9" Width="20" Height="20" Foreground="{DynamicResource Text}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
@@ -12,6 +13,7 @@ using System.Windows.Threading;
 using Dsafa.WpfColorPicker;
 using LInjector.Classes;
 using LInjector.Pages.Elements;
+using LInjector.Pages.Popups;
 using LInjector.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
@@ -28,6 +30,7 @@ namespace LInjector.Pages
     /// </summary>
     public partial class MainView
     {
+
         public MainView()
         {
             InitializeComponent();
@@ -89,18 +92,71 @@ namespace LInjector.Pages
                     button.Click += PlayRandomSound;
                 }
             }
+
+            Shared.mainWindow!.MouseMove += GlMouseMove;
+            Shared.mainWindow!.MouseUp += GlWndMouseUp;
         }
 
         public void ApplyConfig(object sender, RoutedEventArgs e)
         {
+            // Window Opacity
+            double wndOpacity = double.Parse(Themes.GetColor("WindowOpacity"));
+            Shared.mainWindow!.Opacity = wndOpacity;
+            foreach (TabItem item in TabSystem_.maintabs.Items)
+            {
+                MonacoApi TabInstance = (item.Content as MonacoApi)!;
+                TabInstance.ChangeEditorTransparency(wndOpacity);
+            }
+            OpacityValueIndicator.Content = $"{wndOpacity.ToString("F2")}";
+
+            // Set Background Image
+            string backgroundLocation = Themes.GetColor("BackgroundLocation");
+            WindowBackgroundImage.Source = backgroundLocation.StartsWith("http")
+                ? new System.Windows.Media.Imaging.BitmapImage(new Uri(backgroundLocation))
+                : new System.Windows.Media.Imaging.BitmapImage(new Uri(backgroundLocation, UriKind.RelativeOrAbsolute));
+
+            // Load Background Blur Radius
+            double backgroundBlurRadius = double.Parse(Themes.GetColor("BackgroundBlurRadius"));
+            WindowBackgroundBlur.Radius = backgroundBlurRadius;
+            OpacityBackBlurValueIndicator.Content = $"{backgroundBlurRadius.ToString()}";
+
+            // Load Background Opacity
+            double backgroundOpacity = double.Parse(Themes.GetColor("BackgroundOpacity"));
+            WindowBackgroundImage.Opacity = backgroundOpacity;
+            OpacityBackValueIndicator.Content = $"{backgroundOpacity.ToString("F2")}";
+
+            // Hide from Capture
+            Shared.SetWindowCaptureProtection(new WindowInteropHelper(Shared.mainWindow!).Handle, (bool)SettingsWrapper.Read("hide_capture"));
+
             // Top Most
             Shared.mainWindow!.Topmost = (bool)(SettingsWrapper.Read("top_most"));
 
             // Show Script List
-            Shared.mainView!.ScriptListDimensions.Width = ((bool)SettingsWrapper.Read("show_scriptlist")) ? new GridLength(140) : new GridLength(0, GridUnitType.Star);
+            Shared.mainView!.ScriptListDimensions.Width = ((bool)SettingsWrapper.Read("show_scriptlist")) ? new GridLength(120, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
 
             // Show Logs
-            Shared.mainView.LInjectorConsoleDimensions.Height = ((bool)SettingsWrapper.Read("show_internalconsole")) ? new GridLength(100, GridUnitType.Star) : new GridLength(0.001);
+            bool showConsole = (bool)SettingsWrapper.Read("show_internalconsole");
+
+            // Configure console dimensions
+            Shared.mainView.LInjectorConsoleDimensions.Height = new GridLength(
+                showConsole ? 140 : 0,
+                showConsole ? GridUnitType.Star : GridUnitType.Pixel
+            );
+
+            // Configure editor border
+            Shared.mainView.EditorBorder.BorderThickness = new Thickness(
+                0, 0, 0,
+                showConsole ? 0.1 : 0
+            );
+
+            // Editor Transparency if override
+            double editorOpacityValue = double.Parse(Themes.GetColor("EditorTransparency_Override"));
+            foreach (TabItem item in TabSystem_.maintabs.Items)
+            {
+                MonacoApi TabInstance = (item.Content as MonacoApi)!;
+                TabInstance.ChangeEditorTransparency(wndOpacity != 1 ? wndOpacity : editorOpacityValue);
+            }
+            EditorTransparencyValueIndicator.Content = $"{editorOpacityValue.ToString("F2")}";
 
             // Auto Attach
             RunAutoAttachTimer();
@@ -118,15 +174,9 @@ namespace LInjector.Pages
                 // Theme
                 TabInstance.SetTheme($"\"{(SettingsWrapper.Read("monaco_theme")!.ToObject<string[]>())[0]}\"");
 
-                if (isBlurred)
-                    TabInstance.EnableBlur();
-                else
-                    TabInstance.DisableBlur();
+                if (isBlurred) TabInstance.EnableBlur(); else TabInstance.DisableBlur();
 
-                if (showMinimap)
-                    TabInstance.EnableMinimap();
-                else
-                    TabInstance.DisableMinimap();
+                if (showMinimap) TabInstance.EnableMinimap(); else TabInstance.DisableMinimap();
             }
         }
 
@@ -564,6 +614,9 @@ namespace LInjector.Pages
                     object selectedItem = NormalStandaloneScriptsHolder.SelectedItem;
                     TabSystem_.Add_tab_with_text(File.ReadAllText(scriptfolder + "\\" + (selectedItem?.ToString())), selectedItem!.ToString());
                 }
+
+                TabSystem_.Focus();
+                NormalStandaloneScriptsHolder.SelectedItem = null;
             }
             catch { }
         }
@@ -713,6 +766,163 @@ namespace LInjector.Pages
             }
         }
 
+        private bool isDragging = false;
+        private System.Windows.Point lastMousePosition;
+        private double currentValue = 1.0;
+        private double backgroundOpacityValue = 1.0;
+        private double backgroundBlurValue = 1.0;
+        private double editorTransparencyValue = 1.0;
+        private string currentDragButton = "";
+
+        private void OpacityButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                isDragging = true;
+                currentDragButton = ((FrameworkElement)sender).Name;
+                lastMousePosition = e.GetPosition(this);
+                this.CaptureMouse();
+                e.Handled = true;
+            }
+        }
+
+        private void GlMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (isDragging && e.LeftButton == MouseButtonState.Pressed)
+            {
+                System.Windows.Point currentPosition = e.GetPosition(this);
+                double deltaX = currentPosition.X - lastMousePosition.X;
+
+                // Use currentDragButton instead of sender.Name
+                switch (currentDragButton)
+                {
+                    case "WindowOpacityDragDrop":
+                        currentValue += deltaX * 0.007;
+                        currentValue = Math.Max(0.1, Math.Min(1.0, currentValue));
+                        OpacityValueIndicator.Content = $"{currentValue.ToString("F2")}";
+                        Shared.mainWindow!.Opacity = currentValue;
+                        foreach (TabItem item in TabSystem_.maintabs.Items)
+                        {
+                            MonacoApi TabInstance = (item.Content as MonacoApi)!;
+                            TabInstance.ChangeEditorTransparency((double)currentValue);
+                        }
+                        break;
+
+                    case "WindowBackOpacityDragDrop":
+                        backgroundOpacityValue += deltaX * 0.007;
+                        backgroundOpacityValue = Math.Max(0.0, Math.Min(backgroundOpacityValue, 1.0));
+                        OpacityBackValueIndicator.Content = $"{backgroundOpacityValue.ToString("F2")}";
+                        WindowBackgroundImage.Opacity = backgroundOpacityValue;
+                        break;
+
+                    case "WindowBackBlurDragDrop":
+                        backgroundBlurValue += deltaX * 0.5;
+                        backgroundBlurValue = Math.Max(0.0, Math.Min(backgroundBlurValue, 140.0));
+                        OpacityBackBlurValueIndicator.Content = $"{backgroundBlurValue.ToString()}";
+                        WindowBackgroundBlur.Radius = backgroundBlurValue;
+                        break;
+
+                    case "EditorTransparencySetting":
+                        editorTransparencyValue += deltaX * 0.007;
+                        editorTransparencyValue = Math.Max(0.1, Math.Min(1.0, editorTransparencyValue));
+                        EditorTransparencyValueIndicator.Content = $"{editorTransparencyValue.ToString("F2")}";
+                        foreach (TabItem item in TabSystem_.maintabs.Items)
+                        {
+                            MonacoApi TabInstance = (item.Content as MonacoApi)!;
+                            TabInstance.ChangeEditorTransparency((double)editorTransparencyValue);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                lastMousePosition = currentPosition;
+            }
+        }
+
+        private void EditorGotFocus(object sender, RoutedEventArgs e)
+        {
+            GlMouseClick(sender, new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+            {
+                RoutedEvent = Mouse.MouseDownEvent
+            });
+        }
+
+        private void GlWndMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (isDragging)
+            {
+                isDragging = false;
+                this.ReleaseMouseCapture();
+
+                switch (currentDragButton)
+                {
+                    case "WindowOpacityDragDrop":
+                        Themes.SetColor("WindowOpacity", currentValue.ToString());
+                        break;
+
+                    case "WindowBackOpacityDragDrop":
+                        Themes.SetColor("BackgroundOpacity", backgroundOpacityValue.ToString());
+                        break;
+
+                    case "WindowBackBlurDragDrop":
+                        Themes.SetColor("BackgroundBlurRadius", backgroundBlurValue.ToString());
+                        break;
+
+                    case "EditorTransparencySetting":
+                        Themes.SetColor("EditorTransparency_Override", editorTransparencyValue.ToString());
+                        break;
+
+                    default:
+                        break;
+                }
+
+                currentDragButton = "";
+            }
+            GlMouseClick(sender, e);
+        }
+
+        private void GlMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            if (Shared.mainWindow!.OwnedWindows.Count != 0)
+            {
+                foreach (Window ownedWindow in Shared.mainWindow.OwnedWindows)
+                {
+                    if (!ownedWindow.IsActive)
+                    {
+                        bool isDialog;
+                        try
+                        {
+                            ownedWindow.DialogResult = false;
+                            isDialog = true;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            isDialog = false;
+                        }
+
+                        if (!isDialog)
+                        {
+                            ownedWindow.Hide();
+                            ownedWindow.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ChangeWndBackgroundImg(object sender, RoutedEventArgs e)
+        {
+            string? input = InputText.ShowInputDialog("Change Window Background", "Write an image URL below.\n(File locations are supported)", useBrowseButton: true);
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                Themes.SetColor("BackgroundLocation", input);
+                WindowBackgroundImage.Source = input.StartsWith("http")
+                    ? new System.Windows.Media.Imaging.BitmapImage(new Uri(input))
+                    : new System.Windows.Media.Imaging.BitmapImage(new Uri(input, UriKind.RelativeOrAbsolute));
+            }
+        }
+
         public void ColorChanged(object sender,
             RoutedEventArgs e) => HandleColorChange((Button)sender);
 
@@ -726,34 +936,32 @@ namespace LInjector.Pages
         public void HandleColorChange(Button button)
         {
 
+            string buttonTag = button.Tag.ToString()!; // sounds like gutten morgen fr
             Color sigmaColor = Colors.Transparent;
             if (button.Tag.ToString()!.StartsWith("_"))
-            {
-                sigmaColor = Splash.ParseColor(Themes.GetColor(button.Tag.ToString()!));
-            }
+                sigmaColor = Splash.ParseColor(Themes.GetColor(buttonTag));
             else
-            {
-                sigmaColor = ConsoleControl.ParseColor(Themes.GetColor(button.Tag.ToString()!)).Color;
-            }
+                sigmaColor = ConsoleControl.ParseColor(Themes.GetColor(buttonTag)).Color;
 
             var dialog = new ColorPickerDialog(sigmaColor);
+            dialog.ResizeMode = ResizeMode.NoResize;
             dialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            var result = dialog.ShowDialog();
             dialog.Topmost = true;
             dialog.Owner = Shared.mainWindow;
+            var result = dialog.ShowDialog();
 
             if (result.HasValue && result.Value)
             {
                 var color = dialog.Color;
                 var solidColorBrush = new SolidColorBrush(color);
 
-                if (Application.Current.Resources.Contains(button.Tag.ToString()))
-                    Application.Current.Resources[button.Tag.ToString()] = solidColorBrush;
+                if (Application.Current.Resources.Contains(buttonTag))
+                    Application.Current.Resources[buttonTag] = solidColorBrush.Color;
 
                 button.Background = solidColorBrush;
                 string colorHexString = color.ToString();
 
-                Themes.SetColor(button.Tag.ToString()!, colorHexString);
+                Themes.SetColor(buttonTag!, colorHexString);
             }
 
             ParseMyTheme();
@@ -789,7 +997,7 @@ namespace LInjector.Pages
             SetControlBackground(TertiaryColor, "TertiaryColor");
             SetControlBackground(Text, "Text");
             SetControlBackground(SecondaryText, "SecondaryText");
-            SetControlBackground(null!, "_SplashColor1", ThomasShelbyRadialGradient);
+            // SetControlBackground(null!, "_SplashColor1", ThomasShelbyRadialGradient);
         }
 
         /// <summary>
@@ -829,27 +1037,75 @@ namespace LInjector.Pages
         /// <param name="e"></param>
         public void ResetTheme_Click(object sender, RoutedEventArgs e)
         {
-            ResetTheme();
-            ParseMyThemeSelectors();
+            System.Windows.Forms.DialogResult yesNoHi = System.Windows.Forms.MessageBox.Show("Are you sure you want to reset the theme? This will revert all your custom colors to the default ones.", $"{Strings.Get("AppName")} / Reset Theme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (yesNoHi == DialogResult.Yes)
+            {
+                ResetTheme();
+                ParseMyTheme();
+                ParseMyThemeSelectors();
 
-            Application.Current.Resources[PrimaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("PrimaryColor"));
-            Application.Current.Resources[SecondaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("SecondaryColor"));
-            Application.Current.Resources[TertiaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("TertiaryColor"));
-            Application.Current.Resources[Text.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("Text"));
-            Application.Current.Resources[SecondaryText.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("SecondaryText"));
+                Application.Current.Resources[PrimaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("PrimaryColor"));
+                Application.Current.Resources[SecondaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("SecondaryColor"));
+                Application.Current.Resources[TertiaryColor.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("TertiaryColor"));
+                Application.Current.Resources[Text.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("Text"));
+                Application.Current.Resources[SecondaryText.Tag.ToString()] = ConsoleControl.ParseColor(Themes.GetColor("SecondaryText"));
+            }
+        }
+
+        public void ExportTheme_Click(object sender, RoutedEventArgs e)
+        {
+            var saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            {
+                FileName = $"{Environment.UserName}_li-theme.reg",
+                Title = "Save to File | LInjector",
+                Filter = "Registry File (*.reg)|*.reg|All files (*.*)|*.*",
+            };
+
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+
+                string outputFile = saveFileDialog.FileName;
+                string keyPath = $"HKCU\\Software\\{Strings.Get("AppName")}\\Theme";
+
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "reg.exe",
+                    Arguments = $"export \"{keyPath}\" \"{outputFile}\" /y",
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                Process.Start(psi);
+
+                Logs.Console($"Theme exported to {outputFile}");
+                System.Windows.MessageBox.Show($"Theme successfully exported!\n\nTo load it, you just have to open the generated file, located in {outputFile}", $"{Strings.Get("AppName")} / Theme Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void ResetTheme()
         {
-            Themes.SetColor("_SplashColor1", "#FF460B80");
-            Themes.SetColor("_SplashColor2", "#FF570057");
+            Dictionary<string, string> defaultThemeValues = new()
+            {
+                { "_SplashColor1", "#FF460B80" },
+                { "_SplashColor2", "#FF570057" },
+                { "PrimaryColor", "#FF0F0F0F" },
+                { "SecondaryColor", "#FF111111" },
+                { "TertiaryColor", "#FF141414" },
+                { "Text", "#FFFFFFFF" },
+                { "SecondaryText", "#FFD3D3D3" },
+                { "WindowOpacity", "1" },
+                { "BackgroundLocation", "https://excel.lexploits.top/extra/default_background.jpg" },
+                { "BackgroundOpacity", "0" },
+                { "BackgroundBlurRadius", "0" },
+                { "EditorTransparency_Override", "1" }
+            };
 
-            Themes.SetColor("PrimaryColor", "#FF0F0F0F");
-            Themes.SetColor("SecondaryColor", "#FF111111");
-            Themes.SetColor("TertiaryColor", "#FF141414");
-
-            Themes.SetColor("Text", "#FFFFFFFF");
-            Themes.SetColor("SecondaryText", "#FFD3D3D3");
+            foreach (var theme in defaultThemeValues)
+            {
+                Themes.SetColor(theme.Key, theme.Value);
+            }
+            ApplyConfig(null!, null!);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace LInjector.Classes
         private static readonly Dictionary<string, string> values = new()
         {
             { "AppName", "LInjector" },
-            { "AppVersion", "v3.2"},
+            { "AppVersion", "v3.3"},
             { "Saved", Path.Combine(appRoot, "Saved Content") },
             { "AppRoot", appRoot },
             { "GitHubURL", "https://github.com/LExteamz/LInjector" },

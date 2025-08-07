@@ -15,27 +15,32 @@
         SourceInitialized="Window_SourceInitialized"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
+        ShowInTaskbar="True"
         Title="">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="0" UseAeroCaptionButtons="True" NonClientFrameEdges="None" ResizeBorderThickness="30"/>
     </shell:WindowChrome.WindowChrome>
 
     <Grid>
-        <Border Padding="35 20 25 30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+        <Border Padding="30" Grid.RowSpan="2">
             <Border ClipToBounds="False">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="1" x:Name="HarderBetterFasterStronger" Direction="0" RenderingBias="Quality"/>
                 </Border.Effect>
                 <Grid ClipToBounds="True" Background="{DynamicResource PrimaryColor}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="35" MinHeight="35"/>
+                        <RowDefinition Height="25"/>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Border CornerRadius="0" Background="#FF141414" Visibility="Visible" Panel.ZIndex="10">
                         <Grid MouseDown="DragWindow" Background="Transparent">
-                            <ListBox Background="Transparent" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0">
+                            <ListBox Background="Transparent" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="{x:Type ListBoxItem}">
                                         <Setter Property="Template">
@@ -49,42 +54,15 @@
                                 </ListBox.ItemContainerStyle>
                                 <!-- Use a horizontal StackPanel to align items horizontally -->
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MouseDown="DragWindow" Margin="5 0 0 0">
-                                    <Image Source="\Resources\LInjectorr.png" Stretch="Uniform" MaxHeight="23" MouseDown="DragWindow"/>
+                                    <Image Source="\Resources\LInjectorr.png" Stretch="Uniform" MaxHeight="18" MouseDown="DragWindow"  RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                     <Label Content="{Binding PopupCaption}" Foreground="#FFFFFFFF" FontSize="14" Margin="5 0 0 0" FontFamily="Microsoft YaHei UI" MouseDown="DragWindow" Name="TitleBarLabel" />
                                 </StackPanel>
                             </ListBox>
                             <!-- LEFT SIDE THINGS END -->
-                            <!-- CENTER THINGS BEGIN -->
-                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
-                                <Border x:Name="FloatyNotification" Background="Transparent" Width="Auto" CornerRadius="3" VerticalAlignment="Center" Margin="0 0 0 0" Panel.ZIndex="3">
-                                    <ListBox Background="Transparent" x:Name="StatusListBox" HorizontalAlignment="Left" BorderThickness="0" Margin="0 -200 0 0" x:FieldModifier="public">
-                                        <ListBox.ItemContainerStyle>
-                                            <Style TargetType="{x:Type ListBoxItem}">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                            <ContentPresenter />
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </ListBox.ItemContainerStyle>
-                                        <StackPanel Orientation="Horizontal" MouseDown="DragWindow">
-                                            <!-- SHOULD BE #FF111111 -->
-                                            <Border Background="Transparent" Width="25" Height="25" CornerRadius="5" Margin="10 0 0 0" Visibility="Visible" x:Name="AttachedStatusRect" MouseDown="DragWindow">
-                                                <Rectangle Fill="Transparent" Width="20" Height="20" RadiusX="5" RadiusY="5" HorizontalAlignment="Center" x:Name="InjectedRectanglelol"/>
-                                                <!-- ATTACHED: #9be69b -->
-                                                <!-- NOT ATTACHED: #FFA7A7A7  -->
-                                            </Border>
-                                            <Label x:Name="NotificationLabel" Content="" Foreground="{DynamicResource Text}" FontFamily="Segoe UI" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="DragWindow"/>
-                                        </StackPanel>
-                                    </ListBox>
-                                </Border>
-                            </Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Background="Transparent" BorderBrush="Transparent" Content="&#xE921;" Foreground="#FFFFFFFF" FontSize="10" FontFamily="Segoe MDL2 Assets" Click="MinimizeButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" IsEnabled="False" />
-                                <Button x:Name="MaximizeButton" Background="Transparent" BorderBrush="Transparent" Content="&#xE922;" Foreground="#FFFFFFFF" FontSize="10" FontFamily="Segoe MDL2 Assets" Click="MaximizeButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" IsEnabled="False" />
-                                <Button Background="Transparent" BorderBrush="Transparent" Content="&#xE8BB;" Foreground="#FFFFFFFF" FontSize="10" FontFamily="Segoe MDL2 Assets" Click="ExitButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" />
+                                <Button Height="25" Width="Auto" Background="Transparent" BorderBrush="Transparent" Content="&#xE921;" Foreground="#FFFFFFFF" FontSize="7" FontFamily="Segoe Fluent Icons" Click="MinimizeButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" IsEnabled="False" />
+                                <Button Height="25" Width="Auto" x:Name="MaximizeButton" Background="Transparent" BorderBrush="Transparent" Content="&#xE923;" Foreground="#FFFFFFFF" FontSize="7" FontFamily="Segoe Fluent Icons" Click="MaximizeButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" IsEnabled="False" />
+                                <Button Height="25" Width="Auto" Background="Transparent" BorderBrush="Transparent" Content="&#xE8BB;" Foreground="#FFFFFFFF" FontSize="7" FontFamily="Segoe Fluent Icons" Click="ExitButton_Click" HorizontalAlignment="Right" VerticalAlignment="Stretch" materialDesign:RippleAssist.IsDisabled="True" />
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -92,12 +70,19 @@
                     <Grid Grid.Row="1">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="35" MinHeight="50"/>
+                                <RowDefinition Height="50"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="sus dog is a bozo blah blah blah your text" Foreground="{DynamicResource Text}" Grid.Row="0" Padding="25 0 25 0" TextTrimming="None" Height="Auto" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI" x:Name="TuUltimaCancion" />
-                            <Border Background="{DynamicResource TertiaryColor}" Grid.Row="1" Height="30" VerticalAlignment="Center" Margin="25 0 25 0" CornerRadius="3" BorderThickness="1" BorderBrush="{DynamicResource SecondaryColor}" Padding="5 0 5 0">
-                                <TextBox Foreground="{DynamicResource Text}" Background="Transparent" BorderThickness="0" TextAlignment="Left" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed" x:Name="ContentReturn" x:FieldModifier="public" PreviewKeyUp="ContentReturn_PreviewKeyUp"/>
+                            <Border Background="Transparent" Grid.Row="1" Height="30" VerticalAlignment="Center" Margin="25 0 25 0" CornerRadius="3" Padding="5 0 5 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="" materialDesign:TextFieldAssist.TextFieldCornerRadius="6" Foreground="{DynamicResource Text}" BorderThickness="0" TextAlignment="Left" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed" x:Name="ContentReturn" x:FieldModifier="public" PreviewKeyUp="ContentReturn_PreviewKeyUp" Margin="-5,0,2.5,0" Background="{DynamicResource TertiaryColor}" Padding="5,4,0,4" AcceptsReturn="False"/>
+                                    <Button x:Name="BrowseFileButton" Visibility="Visible" Grid.Column="1" Content="&#xE8E5;" FontFamily="Segoe Fluent Icons" Foreground="White" Background="{DynamicResource TertiaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ButtonAssist.CornerRadius="6" Click="BrowseButton_Click" />
+                                </Grid>
                             </Border>
                         </Grid>
                     </Grid>
@@ -109,11 +94,25 @@
                             <Button VerticalAlignment="Top" Content="&#xE711;" Margin="5 0 0 0" Padding="5" Height="35" Width="35" FontSize="16" FontFamily="Segoe MDL2 Assets" Background="{DynamicResource TertiaryColor}" Foreground="{DynamicResource Text}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="6" />
                             -->
 
-                            <Button VerticalAlignment="Top" Content="Ok" Margin="0" Padding="5" Height="35" Width="100" FontSize="16" FontFamily="Microsoft YaHei UI" Background="{DynamicResource TertiaryColor}" Foreground="{DynamicResource Text}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="6" Click="Button_Click" />
-                            <Button VerticalAlignment="Top" Content="Cancel" Margin="5 0 0 0" Padding="5" Height="35" Width="100" FontSize="16" FontFamily="Microsoft YaHei UI" Background="{DynamicResource TertiaryColor}" Foreground="{DynamicResource Text}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="6" Click="Button_Click_1" />
+                            <Button VerticalAlignment="Top" Margin="0" Padding="5" Height="30" Width="70" FontSize="12" FontFamily="Microsoft YaHei UI" Background="{DynamicResource TertiaryColor}" Foreground="{DynamicResource Text}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="6" Click="OkayButton_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Label Content="&#xE8FB;" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="Segoe Fluent Icons" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                                        <Label Content="OK" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0 -1.5" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button VerticalAlignment="Top" Margin="5 0 0 0" Padding="5" Height="30" Width="70" FontSize="12" FontFamily="Microsoft YaHei UI" Background="{DynamicResource TertiaryColor}" Foreground="{DynamicResource Text}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="6" Click="CancelButton_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Label Content="&#xE711;" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="Segoe Fluent Icons" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="-3" />
+                                        <Label Content="Cancel" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0 -1.5" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
+                        <Label Content="Press ESC to exit this menu" Foreground="{DynamicResource SecondaryText}" FontSize="10" VerticalAlignment="Bottom"/>
                     </Grid>
-
                 </Grid>
             </Border>
         </Border>
