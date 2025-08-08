@@ -134,7 +134,7 @@
                             </Grid>
 
                             <!-- //   SETTINGS GRID   // -->
-                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
                                 <TabControl>
                                     <TabControl.ItemContainerStyle>
                                         <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
