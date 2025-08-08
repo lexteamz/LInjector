@@ -134,7 +134,7 @@
                             </Grid>
 
                             <!-- //   SETTINGS GRID   // -->
-                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
                                 <TabControl>
                                     <TabControl.ItemContainerStyle>
                                         <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
@@ -272,7 +272,7 @@
                                                                         <Button.Content>
                                                                             <StackPanel Orientation="Horizontal">
                                                                                 <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityBackValueIndicator"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource Text}" x:Name="OpacityBackValueIndicator"/>
                                                                             </StackPanel>
                                                                         </Button.Content>
                                                                     </Button>
@@ -290,7 +290,7 @@
                                                                         <Button.Content>
                                                                             <StackPanel Orientation="Horizontal">
                                                                                 <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityBackBlurValueIndicator"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource Text}" x:Name="OpacityBackBlurValueIndicator"/>
                                                                             </StackPanel>
                                                                         </Button.Content>
                                                                     </Button>
@@ -308,7 +308,7 @@
                                                                         <Button.Content>
                                                                             <StackPanel Orientation="Horizontal">
                                                                                 <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="EditorTransparencyValueIndicator"/>
+                                                                                <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource Text}" x:Name="EditorTransparencyValueIndicator"/>
                                                                             </StackPanel>
                                                                         </Button.Content>
                                                                     </Button>
@@ -329,7 +329,7 @@
                                                             <Button.Content>
                                                                 <StackPanel Orientation="Horizontal">
                                                                     <Label Content="&#xF1CB;" Foreground="{DynamicResource Text}" FontFamily="Segoe Fluent Icons" FontSize="11" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                                                    <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource SecondaryText}" x:Name="OpacityValueIndicator"/>
+                                                                    <Label Content="0" FontSize="10" VerticalAlignment="Center" Margin="0 -5 0 -5" Foreground="{DynamicResource Text}" x:Name="OpacityValueIndicator"/>
                                                                 </StackPanel>
                                                             </Button.Content>
                                                         </Button>
@@ -387,13 +387,13 @@
                                                                 <StackPanel>
                                                                     <Label Content="Excel ⭑.ᐟ" Foreground="{DynamicResource Text}" FontWeight="Bold" FontSize="16"/>
                                                                     <StackPanel>
-                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                                        <StackPanel Orientation="Horizontal">
                                                                             <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Code" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
-                                                                            <Label Content="Programming"/>
+                                                                            <Label Content="Programming" Foreground="{DynamicResource Text}"/>
                                                                         </StackPanel>
-                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                                                        <StackPanel Orientation="Horizontal">
                                                                             <materialDesign:PackIcon Padding="0" Margin="5 0 0 0" Kind="Drawing" Foreground="{DynamicResource Text}" VerticalAlignment="Center"/>
-                                                                            <Label Content="UI/UX Development"/>
+                                                                            <Label Content="UI/UX Development" Foreground="{DynamicResource Text}"/>
                                                                         </StackPanel>
                                                                     </StackPanel>
                                                                 </StackPanel>
@@ -421,7 +421,7 @@
                             </Grid>
 
                             <!-- // MAIN CONTENT GRID // -->
-                            <Grid Grid.Column="1" x:Name="Section_Editor" Visibility="Visible">
+                            <Grid Grid.Column="1" x:Name="Section_Editor" Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="140*" MaxWidth="180" x:Name="ScriptListDimensions"/>
                                     <ColumnDefinition Width="400*"/>
