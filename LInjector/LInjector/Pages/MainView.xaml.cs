@@ -956,7 +956,7 @@ namespace LInjector.Pages
                 var solidColorBrush = new SolidColorBrush(color);
 
                 if (Application.Current.Resources.Contains(buttonTag))
-                    Application.Current.Resources[buttonTag] = solidColorBrush.Color;
+                    Application.Current.Resources[buttonTag] = buttonTag.StartsWith("_") ? solidColorBrush.Color : solidColorBrush;
 
                 button.Background = solidColorBrush;
                 string colorHexString = color.ToString();
