@@ -45,6 +45,9 @@
 		  *.xml
 	  </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
+  <PropertyGroup>
+	<NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Properties\**" />
@@ -123,7 +126,7 @@
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
     </PackageReference>
     <PackageReference Include="DiscordRichPresence" Version="1.3.0.28" />
     <PackageReference Include="dsafa.WpfColorPicker" Version="1.3.0" />
