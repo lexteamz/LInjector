@@ -1,13 +1,13 @@
 ﻿<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
 	<Costura>
 		<ExcludeAssemblies>
-			Microsoft.Web.WebView2.Core
 			<!-- 
 			Uncomment the lines below if you want to reduce the size of the executable packed by Fody.Costura.
 			Or either, see the graphical editor correctly.
 			
 			MaterialDesignColors
 			MaterialDesignThemes.Wpf
+			Microsoft.Web.WebView2.Core
 			-->
 		</ExcludeAssemblies>
 	</Costura>
