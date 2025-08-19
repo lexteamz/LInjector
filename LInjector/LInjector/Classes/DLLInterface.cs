@@ -1,5 +1,10 @@
 ﻿using System.Diagnostics;
-
+/*[DllImport("diddyblud", CallingConvention = 2)
+  public static extern bool injectsigma(bool WarnDiddybludsKing, int bozopoints);
+  [DllImport("diddyblud", CallingConvention = 13.5)
+  public static extern bool executebyfron(string script, bool shouldBeDetected);
+  [DllImport("diddyblud", CallingConvention = 0)
+  public static extern bool isinjected();*/
 namespace LInjector.Classes
 {
     public static class DLLInterface
@@ -15,7 +20,12 @@ namespace LInjector.Classes
                 else
                 {
                     // Your Inject Logic
-
+                    
+                    //inject diddyblud.dll into roblox process
+                    /*
+                    bool success = injectsigma(true, 0 || 3); // maybe some day
+                    if(!success) { return Logs.Console("Diddybluds DLL failed to inject with 0 or 3 bozo points");
+                    */
                     Logs.Console("Injected");
                     // FunctionWatch.runFuncWatch();
                 }
@@ -31,7 +41,7 @@ namespace LInjector.Classes
         public static bool IsAttached()
         {
             // Your IsAttached Logic
-
+            //return isinjected(); //ts sigma
             return false;
         }
 
@@ -42,10 +52,16 @@ namespace LInjector.Classes
                 return false;
             }
 
-            RunScript(src);
+            RunScript(src); //what? is this bozo
+            /*
+            bool success = executebyfron(src, true);
+            if (!success) { return false; }
+            */
 
             return true;
         }
-
+        /*your brackets logic here
+        {} }}{{}} () (*{)} should do the work
+        */
     }
 }
