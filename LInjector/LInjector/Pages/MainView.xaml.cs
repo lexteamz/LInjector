@@ -125,6 +125,12 @@ namespace LInjector.Pages
             WindowBackgroundImage.Opacity = backgroundOpacity;
             OpacityBackValueIndicator.Content = $"{backgroundOpacity.ToString("F2")}";
 
+            // Ellipse Radial only uses Topbar space
+            MEGA_TSKR.Background = (SettingsWrapper.Read("ellipse_topbar") == true)
+                ? (Application.Current.TryFindResource("SecondaryColor") as System.Windows.Media.Brush ?? System.Windows.Media.Brushes.Transparent)
+                : System.Windows.Media.Brushes.Transparent;
+
+
             // Hide from Capture
             Shared.SetWindowCaptureProtection(new WindowInteropHelper(Shared.mainWindow!).Handle, (bool)SettingsWrapper.Read("hide_capture"));
 
@@ -474,7 +480,7 @@ namespace LInjector.Pages
             {
                 action.Invoke();
 
-                foreach (Grid grid in trakas_hdspm.Children.OfType<Grid>())
+                foreach (Grid grid in m_grid.Children.OfType<Grid>())
                 {
                     if (grid.Name.StartsWith("Section_"))
                     {

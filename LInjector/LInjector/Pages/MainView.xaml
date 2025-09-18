@@ -85,8 +85,8 @@
                             </Grid>
                         </Border>
                     </Border>
-                    <Border Grid.Row="1" Background="Transparent" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0">
-                        <Grid x:Name="trakas_hdspm">
+                    <Border Grid.Row="1" Background="Transparent" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0 0 0 0" x:Name="MEGA_TSKR">
+                        <Grid x:Name="m_grid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="45"/>
                                 <ColumnDefinition Width="*"/>
@@ -134,7 +134,7 @@
                             </Grid>
 
                             <!-- //   SETTINGS GRID   // -->
-                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
                                 <TabControl>
                                     <TabControl.ItemContainerStyle>
                                         <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">

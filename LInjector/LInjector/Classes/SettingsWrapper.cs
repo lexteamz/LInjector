@@ -101,6 +101,13 @@ namespace LInjector.Classes
                     description = "Blur Monaco Editor"
                 }
             },
+            {
+                "ellipse_topbar", new
+                {
+                    value = false,
+                    description = "Gradient only uses the topbar space"
+                }
+            }
         };
 
         public static void Write(string key, dynamic value)
