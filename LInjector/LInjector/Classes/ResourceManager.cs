@@ -37,22 +37,30 @@ namespace LInjector.Classes
             if (string.IsNullOrEmpty(url))
                 Debug.WriteLine("URL cannot be null or empty.", nameof(url));
 
-            if (!Directory.Exists(Path.Combine(Path.GetTempPath(), "LInjector")))
-                Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "LInjector"));
+            if (!Directory.Exists(Path.Combine(Path.GetTempPath(), $"{Strings.Get("AppName")}")))
+                Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"{Strings.Get("AppName")}"));
 
             if (string.IsNullOrEmpty(fileName))
                 Debug.WriteLine("File name cannot be null or empty.", nameof(fileName));
 
-            string tempFilePath = Path.Combine(Path.GetTempPath(), "LInjector", fileName);
+            string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Strings.Get("AppName")}", fileName);
 
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    byte[] fileData = await httpClient.GetByteArrayAsync(url);
+                    byte[] newFileData = await httpClient.GetByteArrayAsync(url);
 
-                    await File.WriteAllBytesAsync(tempFilePath, fileData);
+                    if (File.Exists(tempFilePath))
+                    {
+                        byte[] existingFileData = await File.ReadAllBytesAsync(tempFilePath);
+                        if (existingFileData.SequenceEqual(newFileData))
+                        {
+                            return tempFilePath;
+                        }
+                    }
 
+                    await File.WriteAllBytesAsync(tempFilePath, newFileData);
                     return tempFilePath;
                 }
             }
