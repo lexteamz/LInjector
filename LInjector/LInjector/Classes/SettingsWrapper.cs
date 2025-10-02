@@ -83,7 +83,7 @@ namespace LInjector.Classes
             {
                 "show_minimap", new
                 {
-                    value = true,
+                    value = false, // bozo level statement
                     description = "Monaco Editor Minimap"
                 }
             },

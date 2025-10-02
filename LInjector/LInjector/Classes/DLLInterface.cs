@@ -4,26 +4,26 @@ namespace LInjector.Classes
 {
     public static class DLLInterface
     {
-        public static void Inject()
+        public static async void Inject()
         {
             try
             {
                 if (Process.GetProcessesByName("RobloxPlayerBeta").Length <= 0)
                 {
-                    Logs.Console("Please, open Roblox");
+                    await Logs.Console("Please, open Roblox", true);
                 }
                 else
                 {
                     // Your Inject Logic
 
-                    Logs.Console("Injected");
+                    await Logs.Console("Injected", true);
                     // FunctionWatch.runFuncWatch();
                 }
             }
             catch (Exception ex)
             {
                 // FunctionWatch.clipboardSetText($"Message: {ex.Message}\nStack Trace: {ex.StackTrace}");
-                Logs.Console($"Exception has occurred:\n{ex.Message}\n{ex.StackTrace}");
+                await Logs.Console($"Exception has occurred:\n{ex.Message}\n{ex.StackTrace}");
             }
         }
 

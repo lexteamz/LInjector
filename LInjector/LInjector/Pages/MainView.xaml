@@ -15,11 +15,15 @@
             <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="1" x:Name="HarderBetterFasterStronger" Direction="0" RenderingBias="Quality"/>
         </Border.Effect>
         <Grid Background="{DynamicResource SecondaryColor}" ClipToBounds="True">
-            <Image VerticalAlignment="Stretch" HorizontalAlignment="Center" Source="https://excel.lexploits.top/extra/default_background.jpg" Opacity="0" x:Name="WindowBackgroundImage" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased">
-                <Image.Effect>
-                    <BlurEffect Radius="0" x:Name="WindowBackgroundBlur"/>
-                </Image.Effect>
-            </Image>
+            <Grid>
+                <Grid>
+                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="https://excel.lexploits.top/extra/default_background.jpg" Opacity="0" x:Name="WindowBackgroundImage" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased">
+                        <Image.Effect>
+                            <BlurEffect Radius="0" x:Name="WindowBackgroundBlur"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+            </Grid>
             <Grid ClipToBounds="True" Background="Transparent">
                 <Grid Panel.ZIndex="2">
                     <Ellipse Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False" x:Name="mango_ellipse">
@@ -58,8 +62,15 @@
                                                 <Setter Property="BorderThickness" Value="0"/>
                                             </Style>
                                         </StackPanel.Resources>
-                                        <Label Panel.ZIndex="2" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="14" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}"/>
+                                        <Label Panel.ZIndex="2" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="13" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}" Content="Dumping in Progress..."/>
                                     </StackPanel>
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" x:Name="the_bocchler" ClipToBounds="True" Background="Transparent">
+                                        <Border Background="Transparent" CornerRadius="0" Padding="0">
+                                            <Grid>
+                                                <Label Content="bwaaa" FontFamily="Segoe UI Semilight" x:Name="dorito" Background="Transparent"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
                                 </Grid>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                                     <StackPanel.Resources>
@@ -134,7 +145,7 @@
                             </Grid>
 
                             <!-- //   SETTINGS GRID   // -->
-                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
                                 <TabControl>
                                     <TabControl.ItemContainerStyle>
                                         <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
@@ -545,7 +556,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0" VerticalAlignment="Top">
-                                            <Grid>
+                                            <Grid x:Name="LInjConsoleTabs">
                                                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="3 0 0 0">
                                                     <Label Content="Output" FontSize="10" VerticalAlignment="Bottom" Foreground="{DynamicResource SecondaryText}" HorizontalAlignment="Center"/>
                                                     <Rectangle Width="45" Height="1" Fill="{DynamicResource SecondaryText}" HorizontalAlignment="Center" Margin="0 -3 0 0"/>

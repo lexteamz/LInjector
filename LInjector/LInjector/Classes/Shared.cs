@@ -88,7 +88,7 @@ namespace LInjector.Classes
         /// </summary>
         /// <param name="message">The message to log.</param>
         /// <param name="type">The type of log (default is Normal).</param>
-        public static void Log(string message, LogType type = LogType.Normal)
+        public static async void Log(string message, LogType type = LogType.Normal)
         {
             var localTime = DateTime.Now.ToString("HH:mm");
             var formattedMessage = $"[{localTime}] {message}";
@@ -107,7 +107,7 @@ namespace LInjector.Classes
                 Visibility = System.Windows.Visibility.Visible,
             };
 
-            Logs.Console(message: message);
+            await Logs.Console(message: message);
         }
 
 

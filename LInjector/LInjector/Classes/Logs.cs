@@ -4,10 +4,13 @@ namespace LInjector.Classes
 {
     public class Logs
     {
-        public static void Console(string message)
+        public static async Task Console(string message, bool announceToo = false)
         {
             Shared.mainView!.OutputLogs.Text += $"\n{message}";
             Shared.mainView!.OutputHolder.ScrollToEnd();
+
+            if (announceToo)
+                await Announce.Do(message);
         }
 
         public static async Task AnimateObjectContentAsync(Label Instance, string Message)

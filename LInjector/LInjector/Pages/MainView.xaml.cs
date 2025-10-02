@@ -78,6 +78,7 @@ namespace LInjector.Pages
             ParseMyTheme();
             ParseConfig();
             ParseMyThemeSelectors();
+            Announce.InitVars(the_bocchler, dorito);
 
             NavigationGridClick(Editor, e);
 
@@ -663,31 +664,31 @@ namespace LInjector.Pages
                     string result = text;
 
                     if (string.IsNullOrEmpty(result))
-                        Logs.Console("No content detected");
+                        await Logs.Console("No content detected");
                     else
                     {
                         try
                         {
                             File.WriteAllText(filePath, result);
                             string savedFileName = Path.GetFileName(saveFileDialog.FileName);
-                            Logs.Console($"{savedFileName} saved");
+                            await Logs.Console($"{savedFileName} saved");
                             TabSystem_.ChangeCurrentTabTitle(savedFileName);
                         }
                         catch (Exception)
                         {
-                            Logs.Console("Error saving the file");
+                            await Logs.Console("Error saving the file");
                         }
                     }
 
                 }
                 catch (Exception)
                 {
-                    Logs.Console("Error saving the file");
+                    await Logs.Console("Error saving the file");
                 }
             }
         }
 
-        public void Show_OpenFileDialog()
+        public async void Show_OpenFileDialog()
         {
             try
             {
@@ -722,7 +723,7 @@ namespace LInjector.Pages
             }
             catch
             {
-                Logs.Console("Error while opening the file.");
+                await Logs.Console("Error while opening the file.");
             }
         }
 
@@ -754,12 +755,12 @@ namespace LInjector.Pages
                         }
                         catch (Exception ex)
                         {
-                            Logs.Console($"An exception has occurred\n{ex.Message}\n{ex.StackTrace}");
+                            await Logs.Console($"An exception has occurred\n{ex.Message}\n{ex.StackTrace}");
                         }
                     }
                     catch
                     {
-                        Logs.Console("Unknown error");
+                        await Logs.Console("Unknown error");
                     }
                     break;
                 case "OpenFileButton":
@@ -926,7 +927,7 @@ namespace LInjector.Pages
                 WindowBackgroundImage.Source = input.StartsWith("http")
                     ? new System.Windows.Media.Imaging.BitmapImage(new Uri(input))
                     : new System.Windows.Media.Imaging.BitmapImage(new Uri(input, UriKind.RelativeOrAbsolute));
-            }
+        }
         }
 
         public void ColorChanged(object sender,
@@ -1058,7 +1059,7 @@ namespace LInjector.Pages
             }
         }
 
-        public void ExportTheme_Click(object sender, RoutedEventArgs e)
+        public async void ExportTheme_Click(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new System.Windows.Forms.SaveFileDialog
             {
@@ -1084,7 +1085,7 @@ namespace LInjector.Pages
 
                 Process.Start(psi);
 
-                Logs.Console($"Theme exported to {outputFile}");
+                await Logs.Console($"Theme exported to {outputFile}", true);
                 System.Windows.MessageBox.Show($"Theme successfully exported!\n\nTo load it, you just have to open the generated file, located in {outputFile}", $"{Strings.Get("AppName")} / Theme Saved", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
