@@ -49,7 +49,7 @@
                                     <Image Source="pack://application:,,,/LInjector;component/Resources/LInjector.png" MaxHeight="27" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="DragWnd" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 </Grid>
                                 <Grid x:Name="oneeightzerozero">
-                                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0" MouseDown="DragWnd" x:Name="ContextMenuHolder">
+                                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0" MouseDown="DragWnd" x:Name="ContextMenuHolder" Panel.ZIndex="2">
                                         <StackPanel.Resources>
                                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                                 <Setter Property="Padding" Value="2.5"/>
