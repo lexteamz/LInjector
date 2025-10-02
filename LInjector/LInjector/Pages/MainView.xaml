@@ -24,8 +24,8 @@
                     </Image>
                 </Grid>
             </Grid>
-            <Grid ClipToBounds="True" Background="Transparent">
-                <Grid Panel.ZIndex="2">
+            <Grid ClipToBounds="True" Background="Transparent" x:Name="heheheha">
+                <Grid Panel.ZIndex="2" x:Name="sixty_seven">
                     <Ellipse Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False" x:Name="mango_ellipse">
                         <Ellipse.Effect>
                             <BlurEffect Radius="100"/>
@@ -48,7 +48,7 @@
                                 <Grid HorizontalAlignment="Left" MouseDown="DragWnd" Panel.ZIndex="2">
                                     <Image Source="pack://application:,,,/LInjector;component/Resources/LInjector.png" MaxHeight="27" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="DragWnd" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 </Grid>
-                                <Grid>
+                                <Grid x:Name="oneeightzerozero">
                                     <StackPanel Orientation="Horizontal" Margin="30,0,0,0" MouseDown="DragWnd" x:Name="ContextMenuHolder">
                                         <StackPanel.Resources>
                                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">

@@ -127,9 +127,24 @@ namespace LInjector.Pages
             OpacityBackValueIndicator.Content = $"{backgroundOpacity.ToString("F2")}";
 
             // Ellipse Radial only uses Topbar space
-            MEGA_TSKR.Background = (SettingsWrapper.Read("ellipse_topbar") == true)
-                ? (Application.Current.TryFindResource("SecondaryColor") as System.Windows.Media.Brush ?? System.Windows.Media.Brushes.Transparent)
-                : System.Windows.Media.Brushes.Transparent;
+            var currentParent = sixty_seven.Parent as Grid;
+
+            if (SettingsWrapper.Read("ellipse_topbar") == true)
+            {
+                if (currentParent != oneeightzerozero)
+                {
+                    currentParent?.Children.Remove(sixty_seven);
+                    oneeightzerozero.Children.Add(sixty_seven);
+                }
+            }
+            else
+            {
+                if (currentParent != heheheha)
+                {
+                    currentParent?.Children.Remove(sixty_seven);
+                    heheheha.Children.Add(sixty_seven);
+                }
+            }
 
 
             // Hide from Capture
