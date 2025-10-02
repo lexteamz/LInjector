@@ -88,11 +88,6 @@ namespace LInjector.Classes
         /// </summary>
         /// <param name="message">The message to log.</param>
         /// <param name="type">The type of log (default is Normal).</param>
-        /// <summary>
-        /// Logs a message into the Status Listbox
-        /// </summary>
-        /// <param name="message">The message to log.</param>
-        /// <param name="type">The type of log (default is Normal).</param>
         public static void Log(string message, LogType type = LogType.Normal)
         {
             var localTime = DateTime.Now.ToString("HH:mm");
