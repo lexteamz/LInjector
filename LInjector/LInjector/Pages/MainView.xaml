@@ -25,7 +25,7 @@
                 </Grid>
             </Grid>
             <Grid ClipToBounds="True" Background="Transparent" x:Name="heheheha">
-                <Grid Panel.ZIndex="2" x:Name="sixty_seven">
+                <Grid Panel.ZIndex="0" x:Name="sixty_seven">
                     <Ellipse Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False" x:Name="mango_ellipse">
                         <Ellipse.Effect>
                             <BlurEffect Radius="100"/>
@@ -62,17 +62,17 @@
                                                 <Setter Property="BorderThickness" Value="0"/>
                                             </Style>
                                         </StackPanel.Resources>
-                                        <Label Panel.ZIndex="2" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="13" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}" Content="Dumping in Progress..."/>
+                                        <Label Panel.ZIndex="100" Margin="10 0 0 0" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="13" Loaded="TitleBarLabel_Loaded" x:Name="TitleBarLabel" Foreground="{DynamicResource Text}" Content=""/>
                                     </StackPanel>
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" x:Name="the_bocchler" ClipToBounds="True" Background="Transparent">
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" x:Name="the_bocchler" ClipToBounds="True" Background="Transparent" Panel.ZIndex="2">
                                         <Border Background="Transparent" CornerRadius="0" Padding="0">
-                                            <Grid>
+                                            <Grid Panel.ZIndex="2">
                                                 <Label Content="bwaaa" FontFamily="Segoe UI Semilight" x:Name="dorito" Background="Transparent"/>
                                             </Grid>
                                         </Border>
                                     </Grid>
                                 </Grid>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True" Panel.ZIndex="2">
                                     <StackPanel.Resources>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="Margin" Value="0"/>
@@ -183,7 +183,7 @@
                                             </ScrollViewer>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="Customisation">
+                                    <TabItem Header="Window Customisation">
                                         <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
                                             <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" materialDesign:RippleAssist.IsDisabled="True" materialDesign:ListBoxItemAssist.ShowSelection="False" >
                                                 <StackPanel>
