@@ -46,6 +46,13 @@ namespace LInjector.Classes
                 }
             },
             {
+                "safe_mode", new
+                {
+                    value = false,
+                    description = "Ah yes, Hamburger's Safe Mode v3"
+                }
+            },
+            {
                 "hide_capture", new
                 {
                     value = false,

@@ -65,7 +65,7 @@ namespace LInjector.Pages
         }
 
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Section_Settings.Visibility = Visibility.Hidden;
             Section_Editor.Visibility = Visibility.Hidden;
@@ -82,8 +82,8 @@ namespace LInjector.Pages
 
             NavigationGridClick(Editor, e);
 
-            ScriptContext.EnsureFunctionsFile();
-            ScriptContext.BeginFunctionTick();
+            await ScriptContext.EnsureFunctionsFile();
+            await ScriptContext.BeginFunctionTick();
             BeginAttachDetection();
 
             if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1) // April 1st

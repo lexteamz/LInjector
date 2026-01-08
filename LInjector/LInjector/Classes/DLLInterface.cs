@@ -17,12 +17,10 @@ namespace LInjector.Classes
                     // Your Inject Logic
 
                     await Logs.Console("Injected", true);
-                    // FunctionWatch.runFuncWatch();
                 }
             }
             catch (Exception ex)
             {
-                // FunctionWatch.clipboardSetText($"Message: {ex.Message}\nStack Trace: {ex.StackTrace}");
                 await Logs.Console($"Exception has occurred:\n{ex.Message}\n{ex.StackTrace}");
             }
         }
@@ -38,11 +36,9 @@ namespace LInjector.Classes
         public static bool RunScript(string src)
         {
             if (!IsAttached())
-            {
                 return false;
-            }
 
-            RunScript(src);
+            // Your RunScript Logic
 
             return true;
         }

@@ -159,7 +159,7 @@
 
                                             <Setter Property="materialDesign:ColorZoneAssist.Background" Value="Transparent"/>
                                             <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Inverted"/>
-                                            <Setter Property="Margin" Value="5 0"/>
+                                            <Setter Property="Margin" Value="0"/>
                                             <Setter Property="materialDesign:RippleAssist.IsDisabled" Value="True"/>
 
                                         </Style>
