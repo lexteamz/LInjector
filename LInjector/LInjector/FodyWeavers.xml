@@ -10,5 +10,8 @@
 			Microsoft.Web.WebView2.Core
 			-->
 		</ExcludeAssemblies>
+		<Unmanaged64Assemblies>
+			WebView2Loader
+		</Unmanaged64Assemblies>
 	</Costura>
 </Weavers>

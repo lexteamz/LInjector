@@ -1,9 +1,9 @@
-﻿using System.Windows;
+﻿using LInjector.Classes;
+using Newtonsoft.Json.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using LInjector.Classes;
-using Newtonsoft.Json.Linq;
 using Application = System.Windows.Application;
 using Brushes = System.Windows.Media.Brushes;
 using CheckBox = System.Windows.Controls.CheckBox;
@@ -245,7 +245,7 @@ namespace LInjector.Pages.Elements
 
         private Grid CreateGridWithConnectingLine()
         {
-            var grid = new Grid { Margin = new Thickness(10, 0, 10, 0) };
+            var grid = new Grid { Margin = new Thickness(10, 0, -10, 0) };
 
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -256,7 +256,7 @@ namespace LInjector.Pages.Elements
                 Height = 0.5,
                 Opacity = 0.3,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(10, 3, 10, 0),
+                Margin = new Thickness(10, 3, 5, 0),
                 StrokeDashArray = new DoubleCollection { 2, 2 }
             };
 

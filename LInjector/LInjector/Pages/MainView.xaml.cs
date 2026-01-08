@@ -1,4 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Dsafa.WpfColorPicker;
+using LInjector.Classes;
+using LInjector.Pages.Elements;
+using LInjector.Pages.Popups;
+using LInjector.Windows;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -10,17 +18,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
-using Dsafa.WpfColorPicker;
-using LInjector.Classes;
-using LInjector.Pages.Elements;
-using LInjector.Pages.Popups;
-using LInjector.Windows;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using Color = System.Windows.Media.Color;
+using Cursors = System.Windows.Input.Cursors;
 using File = System.IO.File;
 
 namespace LInjector.Pages
@@ -56,6 +57,30 @@ namespace LInjector.Pages
             }
         }
 
+        public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                foreach (object childObj in LogicalTreeHelper.GetChildren(depObj))
+                {
+                    DependencyObject? child = childObj as DependencyObject;
+
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    if (child != null)
+                    {
+                        foreach (T childOfChild in FindLogicalChildren<T>(child))
+                        {
+                            yield return childOfChild;
+                        }
+                    }
+                }
+            }
+        }
+
         private void PlayRandomSound(object sender, RoutedEventArgs e)
         {
             int rand = new Random().Next(1, Splash.soundEvents.Length);
@@ -64,16 +89,14 @@ namespace LInjector.Pages
             StartupHandler.PlayStartupSound(RandomEvent);
         }
 
-
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Section_Settings.Visibility = Visibility.Hidden;
             Section_Editor.Visibility = Visibility.Hidden;
-
-            TitleBarLabel.Content = $"{Strings.Get("AppName")}";
-
             TabSystem_.Visibility = Visibility.Visible;
             TabSystem_.IsEnabled = true;
+
+            TitleBarLabel.Content = $"{Strings.Get("AppName")}";
 
             ParseMyTheme();
             ParseConfig();
@@ -82,21 +105,22 @@ namespace LInjector.Pages
 
             NavigationGridClick(Editor, e);
 
-            await ScriptContext.EnsureFunctionsFile();
-            await ScriptContext.BeginFunctionTick();
-            BeginAttachDetection();
-
-            if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1) // April 1st
-            {
-                foreach (var button in FindVisualChildren<Button>(this))
-                {
+            if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1)
+                foreach (Button button in FindLogicalChildren<Button>(this))
                     button.Click += PlayRandomSound;
-                }
-            }
+
+            foreach (TextBlock textBlock in FindLogicalChildren<TextBlock>(this))
+                if (textBlock.TextDecorations.Any(d => d.Location == TextDecorationLocation.Underline))
+                    textBlock.Cursor = Cursors.Hand;
 
             Shared.mainWindow!.MouseMove += GlMouseMove;
             Shared.mainWindow!.MouseUp += GlWndMouseUp;
+
+            await ScriptContext.EnsureFunctionsFile();
+            await ScriptContext.BeginFunctionTick();
+            BeginAttachDetection();
         }
+
 
         public void ApplyConfig(object sender, RoutedEventArgs e)
         {
@@ -432,15 +456,25 @@ namespace LInjector.Pages
                 File.Delete(item);
         }
 
-        private void GitHub_onClick(object sender, RoutedEventArgs e) => Shared.OpenURL(Strings.Get("GitHubURL"));
-
-        private void Discord_MouseDown(object sender, MouseButtonEventArgs e) => Shared.OpenURL(Strings.Get("DiscordServerURL"));
+        private void Hyperlink_PreviewDown(object sender, MouseButtonEventArgs e) => Shared.OpenURL(Strings.Get((sender as FrameworkElement)!.Uid));
 
         public void OnCloseFadeoutCompleted(object sender, EventArgs e)
         {
             // await Shared.ws.CloseWebSocket();
             Shared.mainWindow!.Close();
             Application.Current.Shutdown();
+
+            try
+            {
+                string? webViewCacheDir = TabSystem_.CurrentMonaco()!.CoreWebView2.Environment.UserDataFolder;
+                var webViewProcessId = Convert.ToInt32(TabSystem_.CurrentMonaco()!.CoreWebView2.BrowserProcessId);
+                var webViewProcess = Process.GetProcessById(webViewProcessId);
+
+                TabSystem_.CurrentMonaco()!.Dispose();
+                webViewProcess.WaitForExit(3000);
+
+                Directory.Delete(webViewCacheDir, true);
+            } catch  { }
         }
 
         private async void ContextMenuClick(object sender, RoutedEventArgs e)
@@ -812,6 +846,7 @@ namespace LInjector.Pages
         {
             if (isDragging && e.LeftButton == MouseButtonState.Pressed)
             {
+                // Mouse.OverrideCursor = Cursors.ScrollWE;
                 System.Windows.Point currentPosition = e.GetPosition(this);
                 double deltaX = currentPosition.X - lastMousePosition.X;
 
@@ -876,6 +911,7 @@ namespace LInjector.Pages
             {
                 isDragging = false;
                 this.ReleaseMouseCapture();
+                Mouse.OverrideCursor = null;
 
                 switch (currentDragButton)
                 {
@@ -942,7 +978,7 @@ namespace LInjector.Pages
                 WindowBackgroundImage.Source = input.StartsWith("http")
                     ? new System.Windows.Media.Imaging.BitmapImage(new Uri(input))
                     : new System.Windows.Media.Imaging.BitmapImage(new Uri(input, UriKind.RelativeOrAbsolute));
-        }
+            }
         }
 
         public void ColorChanged(object sender,

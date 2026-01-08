@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using LInjector.Classes;
+using LInjector.Pages;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using LInjector.Classes;
-using LInjector.Pages;
 
 namespace LInjector.Windows
 {

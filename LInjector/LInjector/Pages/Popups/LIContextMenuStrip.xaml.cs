@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using LInjector.Classes;
+using System.Windows;
 using System.Windows.Controls;
-using LInjector.Classes;
 using Button = System.Windows.Controls.Button;
 using FontFamily = System.Windows.Media.FontFamily;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;

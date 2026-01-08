@@ -1,36 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <StartupObject></StartupObject>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <UseWindowsForms>True</UseWindowsForms>
-    <Platforms>x64</Platforms>
-    <BaseOutputPath>$(ProjectDir)</BaseOutputPath>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <SignAssembly>False</SignAssembly>
-    <Title>LInjector</Title>
-    <Version>3.3.1.0</Version>
-    <PackageIcon>LInjectorr.png</PackageIcon>
-    <Copyright>Copyright (c) LEx Softworks 2024</Copyright>
-    <Description>LInjector Development Tool</Description>
-    <Company>LEx Softworks</Company>
-    <PackageProjectUrl>https://lexploits.top</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/LExteamz/LInjector</RepositoryUrl>
-    <PackageOutputPath>Release\</PackageOutputPath>
-    <ApplicationIcon>LInjector.ico</ApplicationIcon>
-    <FileVersion>3.3.1.0</FileVersion>
-    <AssemblyVersion>3.3.1.0</AssemblyVersion>
-    <Authors>Excel</Authors>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<UseWPF>true</UseWPF>
+	<StartupObject></StartupObject>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<UseWindowsForms>True</UseWindowsForms>
+	<Platforms>x64</Platforms>
+	<BaseOutputPath>$(ProjectDir)</BaseOutputPath>
+	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	<SignAssembly>False</SignAssembly>
+	<Title>LInjector</Title>
+	<Version>3.3.2.0</Version>
+	<PackageIcon>LInjectorr.png</PackageIcon>
+	<Copyright>Copyright (c) LEx Softworks 2026</Copyright>
+	<Description>LInjector Development Tool</Description>
+	<Company>LEx Softworks</Company>
+	<PackageProjectUrl>https://lexploits.top</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/lexteamz/LInjector</RepositoryUrl>
+	<PackageOutputPath>Release\</PackageOutputPath>
+	<ApplicationIcon>LInjector.ico</ApplicationIcon>
+	<FileVersion>3.3.2.0</FileVersion>
+	<AssemblyVersion>3.3.2.0</AssemblyVersion>
+	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	<DeployOnBuild>true</DeployOnBuild>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+	<SelfContained>false</SelfContained>
+	<PublishSingleFile>true</PublishSingleFile>
+	<SingleFile>true</SingleFile>
+	<DisableFody Condition="'$(Configuration)' == 'SingleFile'">true</DisableFody>
+	<Authors>Excel</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-    <DebugType>none</DebugType>
+	<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	<DebugType>none</DebugType>
 	  <AllowedReferenceRelatedFileExtensions>
 		  *.pdb;
 		  *.xml
@@ -38,8 +46,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-    <DebugType>none</DebugType>
+	<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	<DebugType>none</DebugType>
 	  <AllowedReferenceRelatedFileExtensions>
 		  *.pdb;
 		  *.xml
@@ -47,104 +55,104 @@
   </PropertyGroup>
   <PropertyGroup>
 	<NoWarn>NU1701</NoWarn>
+	<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\**" />
-    <EmbeddedResource Remove="Properties\**" />
-    <None Remove="Properties\**" />
-    <Page Remove="Properties\**" />
+	<Compile Remove="Properties\**" />
+	<EmbeddedResource Remove="Properties\**" />
+	<None Remove="Properties\**" />
+	<Page Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="LInjector.ico" />
-    <None Remove="Resources\depso.png" />
-    <None Remove="Resources\Excel.png" />
-    <None Remove="Resources\Icons\Attach.png" />
-    <None Remove="Resources\Icons\Console.png" />
-    <None Remove="Resources\Icons\Discord.png" />
-    <None Remove="Resources\Icons\Execute.png" />
-    <None Remove="Resources\Icons\GitHub.png" />
-    <None Remove="Resources\Icons\Place.png" />
-    <None Remove="Resources\Icons\Script.png" />
-    <None Remove="Resources\Icons\Segoe Fluent Icons.ttf" />
-    <None Remove="Resources\Icons\Settings.png" />
-    <None Remove="Resources\Internal\Init.lua" />
-    <None Remove="Resources\LInjector.png" />
-    <None Remove="Resources\linj_shadow.png" />
+	<None Remove="LInjector.ico" />
+	<None Remove="Resources\depso.png" />
+	<None Remove="Resources\Excel.png" />
+	<None Remove="Resources\Icons\Attach.png" />
+	<None Remove="Resources\Icons\Console.png" />
+	<None Remove="Resources\Icons\Discord.png" />
+	<None Remove="Resources\Icons\Execute.png" />
+	<None Remove="Resources\Icons\GitHub.png" />
+	<None Remove="Resources\Icons\Place.png" />
+	<None Remove="Resources\Icons\Script.png" />
+	<None Remove="Resources\Icons\Segoe Fluent Icons.ttf" />
+	<None Remove="Resources\Icons\Settings.png" />
+	<None Remove="Resources\Internal\Init.lua" />
+	<None Remove="Resources\LInjector.png" />
+	<None Remove="Resources\linj_shadow.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="LInjector.ico" />
-    <Resource Include="Resources\depso.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Excel.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Attach.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Console.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Discord.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Execute.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\GitHub.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Place.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Script.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Segoe Fluent Icons.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Settings.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Resources\Internal\Init.lua">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Resources\LInjector.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\LInjectorr.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\linj_shadow.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+	<EmbeddedResource Include="LInjector.ico" />
+	<Resource Include="Resources\depso.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Excel.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Attach.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Console.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Discord.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Execute.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\GitHub.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Place.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Script.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Segoe Fluent Icons.ttf">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\Icons\Settings.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Content Include="Resources\Internal\Init.lua">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Content>
+	<Resource Include="Resources\LInjector.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\LInjectorr.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
+	<Resource Include="Resources\linj_shadow.png">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
-    <PackageReference Include="dsafa.WpfColorPicker" Version="1.3.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3595.46" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
+	<PackageReference Include="Costura.Fody" Version="6.0.0">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
+	<PackageReference Include="dsafa.WpfColorPicker" Version="1.3.0" />
+	<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	<PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="LInjector.ico" />
+	<Resource Include="LInjector.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\LInjectorr.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+	<None Update="Resources\LInjectorr.png">
+	  <Pack>True</Pack>
+	  <PackagePath>\</PackagePath>
+	</None>
   </ItemGroup>
-
 </Project>

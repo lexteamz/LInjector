@@ -1,9 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using LInjector.Classes;
+using LInjector.Pages.Popups;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using LInjector.Classes;
-using LInjector.Pages.Popups;
 using Brushes = System.Windows.Media.Brushes;
 using Point = System.Drawing.Point;
 using UserControl = System.Windows.Controls.UserControl;

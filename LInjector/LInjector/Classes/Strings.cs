@@ -12,13 +12,14 @@ namespace LInjector.Classes
             { "AppVersion", "v3.3"},
             { "Saved", Path.Combine(appRoot, "Saved Content") },
             { "AppRoot", appRoot },
-            { "GitHubURL", "https://github.com/LExteamz/LInjector" },
+            { "GitHubURL", "https://github.com/lexteamz/LInjector" },
             { "GitHubUsername", "LExteamz" },
             { "GitHubRepoName", "LInjector" },
             { "DiscordServerURL", "https://discord.com/invite/NQY28YSVAb" },
+            { "GitHubDevURL", "https://github.com/itzzexcel" },
 
             { "EmbeddedResource", "pack://application:,,,/LInjector;component/" },
-            { "SegoeIconsFontURL", $"https://raw.githubusercontent.com/LExteamz/LInjector/refs/heads/main/LInjector/LInjector/Resources/Icons/Segoe%20Fluent%20Icons.ttf" }
+            { "SegoeIconsFontURL", $"https://raw.githubusercontent.com/lexteamz/LInjector/refs/heads/main/LInjector/LInjector/Resources/Icons/Segoe%20Fluent%20Icons.ttf" }
         };
 
         public static string Get(string key) => values.TryGetValue(key, out var value) ? value : string.Empty;

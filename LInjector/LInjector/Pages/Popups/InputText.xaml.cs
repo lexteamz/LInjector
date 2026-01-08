@@ -1,9 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using LInjector.Classes;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using LInjector.Classes;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace LInjector.Pages.Popups

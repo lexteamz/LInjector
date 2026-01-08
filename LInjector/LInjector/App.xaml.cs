@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using LInjector.Classes;
+using System.Windows;
 using System.Windows.Threading;
-using LInjector.Classes;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
