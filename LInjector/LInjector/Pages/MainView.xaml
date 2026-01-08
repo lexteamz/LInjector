@@ -145,7 +145,7 @@
                             </Grid>
 
                             <!-- //   SETTINGS GRID   // -->
-                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Visible">
+                            <Grid Grid.Column="1" x:Name="Section_Settings" Visibility="Collapsed">
                                 <TabControl>
                                     <TabControl.ItemContainerStyle>
                                         <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
@@ -454,7 +454,7 @@
                                             </Grid>
                                             <TextBox Grid.Row="1" Foreground="{DynamicResource Text}" TextChanged="ScriptSearch_TextChanged" x:Name="ScriptSearchBox" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed" AcceptsReturn="False" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource Text}" CaretBrush="{DynamicResource Text}"/>
                                             <Grid Grid.Row="2" ScrollViewer.CanContentScroll="True">
-                                                <ListBox x:Name="NormalStandaloneScriptsHolder" Loaded="NormalStandaloneScriptsHolder_Loaded" SelectionChanged="NormalStandaloneScriptsHolder_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                                                <ListBox x:Name="NormalStandaloneScriptsHolder" Loaded="NormalStandaloneScriptsHolder_Loaded" SelectionChanged="NormalStandaloneScriptsHolder_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.VerticalScrollBarVisibility="Hidden" materialDesign:ListBoxAssist.CanUserToggleSelectedItem="False">
                                                     <ListBox.ItemContainerStyle>
                                                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                                             <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"/>

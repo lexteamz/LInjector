@@ -66,17 +66,11 @@ namespace LInjector.Pages
                     DependencyObject? child = childObj as DependencyObject;
 
                     if (child != null && child is T)
-                    {
                         yield return (T)child;
-                    }
 
                     if (child != null)
-                    {
                         foreach (T childOfChild in FindLogicalChildren<T>(child))
-                        {
                             yield return childOfChild;
-                        }
-                    }
                 }
             }
         }
@@ -111,7 +105,10 @@ namespace LInjector.Pages
 
             foreach (TextBlock textBlock in FindLogicalChildren<TextBlock>(this))
                 if (textBlock.TextDecorations.Any(d => d.Location == TextDecorationLocation.Underline))
+                {
                     textBlock.Cursor = Cursors.Hand;
+                    textBlock.ToolTip = Strings.Get(textBlock.Uid);
+                }
 
             Shared.mainWindow!.MouseMove += GlMouseMove;
             Shared.mainWindow!.MouseUp += GlWndMouseUp;
@@ -846,7 +843,7 @@ namespace LInjector.Pages
         {
             if (isDragging && e.LeftButton == MouseButtonState.Pressed)
             {
-                // Mouse.OverrideCursor = Cursors.ScrollWE;
+                Mouse.OverrideCursor = Cursors.ScrollWE;
                 System.Windows.Point currentPosition = e.GetPosition(this);
                 double deltaX = currentPosition.X - lastMousePosition.X;
 
