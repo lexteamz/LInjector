@@ -152,7 +152,7 @@ namespace LInjector.Pages
 
                 Process.Start(psi);
 
-                await Logs.Console($"Theme exported to {outputFile}", true);
+                _ = Logs.Console($"Theme exported to {outputFile}", true);
                 System.Windows.MessageBox.Show($"Theme successfully exported!\n\nTo load it, you just have to open the generated file, located in {outputFile}", $"{Strings.Get("AppName")} / Theme Saved", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

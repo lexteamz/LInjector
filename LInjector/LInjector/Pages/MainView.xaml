@@ -411,7 +411,7 @@
 
 
                                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 5">
-                                                        <Label Content="This project is free, nonprofit and open-source under the MIT License on GitHub." HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
+                                                        <Label Content="This project is free, nonprofit and open-source under the MIT License on GitHub. ☭" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
                                                         <TextBlock TextDecorations="Underline" Text="GitHub Repository" Margin="5 0 0 0" PreviewMouseDown="Hyperlink_PreviewDown" x:Uid="GitHubURL" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
                                                         <TextBlock TextDecorations="Underline" Text="Discord Server" Margin="5 0 0 0" PreviewMouseDown="Hyperlink_PreviewDown" x:Uid="DiscordServerURL" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"/>
                                                     </StackPanel>
