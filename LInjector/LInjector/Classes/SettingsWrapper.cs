@@ -90,7 +90,7 @@ namespace LInjector.Classes
             {
                 "show_minimap", new
                 {
-                    value = false, // bozo level statement
+                    value = false,
                     description = "Monaco Editor Minimap"
                 }
             },
@@ -113,6 +113,13 @@ namespace LInjector.Classes
                 {
                     value = false,
                     description = "Gradient only uses the topbar space"
+                }
+            },
+            {
+                "attached_glow_disabled", new
+                {
+                    value = false,
+                    description = "Disable window glow when attached"
                 }
             }
         };

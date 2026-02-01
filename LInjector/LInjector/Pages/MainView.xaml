@@ -390,7 +390,7 @@
                                                         <ScrollViewer materialDesign:RippleAssist.IsDisabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" Focusable="False" materialDesign:ListBoxItemAssist.ShowSelection="False">
                                                             <StackPanel>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <Image Source="https://avatar-cyan.vercel.app/api/pfp/686765279363334205/image" Width="100px" Height="100px" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                                                    <Image Width="100px" Height="100px" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" x:Name="devImageField"/>
                                                                     <StackPanel>
                                                                         <TextBlock Text="Excel ⭑.ᐟ" Foreground="{DynamicResource Text}" FontWeight="Bold" FontSize="16" TextDecorations="Underline" Padding="5.5 0 0 0" PreviewMouseDown="Hyperlink_PreviewDown" x:Uid="GitHubDevURL"/>
                                                                         <StackPanel>

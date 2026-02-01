@@ -101,7 +101,7 @@ namespace LInjector.Pages
         {
             if (DesignerProperties.GetIsInDesignMode(this)) return;
 
-            bool isAttached = DLLInterface.IsAttached();
+            bool isAttached = DLLInterface.IsAttached() && !(bool)SettingsWrapper.Read("attached_glow_disabled");
 
             AnimateColor(HarderBetterFasterStronger, ConsoleControl.ParseColor(isAttached ? "#FF7B68EE" : "#FF000000").Color);
             AnimateBlur(HarderBetterFasterStronger, isAttached ? 30 : 15);
