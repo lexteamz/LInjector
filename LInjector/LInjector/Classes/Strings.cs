@@ -19,7 +19,7 @@ namespace LInjector.Classes
             { "GitHubRepoName", "LInjector" },
             { "DiscordServerURL", "https://discord.com/invite/NQY28YSVAb" },
             { "GitHubDevURL", "https://github.com/itzzexcel" },
-            { "DeveloperImage", JsonDocument.Parse(new HttpClient().GetStringAsync("https://devpocket.dev/api/discord/lookup/686765279363334205").GetAwaiter().GetResult()).RootElement.GetProperty("user").GetProperty("avatarUrl").GetString()! },
+            { "DeveloperImage", "https://pfp.lexploits.top/api/pfp/686765279363334205/image" }, /* JsonDocument.Parse(new HttpClient().GetStringAsync("https://devpocket.dev/api/discord/lookup/686765279363334205").GetAwaiter().GetResult()).RootElement.GetProperty("user").GetProperty("avatarUrl").GetString()! }*/
 
             { "EmbeddedResource", "pack://application:,,,/LInjector;component/" },
             { "SegoeIconsFontURL", $"https://raw.githubusercontent.com/lexteamz/LInjector/refs/heads/main/LInjector/LInjector/Resources/Icons/Segoe%20Fluent%20Icons.ttf" }
