@@ -139,8 +139,8 @@
 	</PackageReference>
 	<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
 	<PackageReference Include="dsafa.WpfColorPicker" Version="1.3.0" />
-	<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
-	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+	<PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3856.49" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	<PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
