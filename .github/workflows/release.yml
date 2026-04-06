@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[REBUILD]')
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'call_recompile')
 
     steps:
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
 
       - name: Get Short SHA
         id: sha
-        run: echo "short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        run: echo "short=$($env:GITHUB_SHA.Substring(0, 7))" >> $env:GITHUB_OUTPUT
 
       - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
