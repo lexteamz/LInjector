@@ -1,16 +1,24 @@
-name: Stable
+name: Release
 
 on:
   release:
     types: [published]
+  push:
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[REBUILD]')
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Get Short SHA
+        id: sha
+        run: echo "short=${{ github.sha }}".Substring(0, 7) >> $env:GITHUB_OUTPUT
 
       - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
@@ -21,8 +29,21 @@ jobs:
         run: dotnet publish "LInjector/LInjector/LInjector.csproj" -r win-x64 -c Release --self-contained false -p:PublishSingleFile=true -p:DisableFody=false -p:IncludeNativeLibrariesForSelfExtract=true -o build
 
       - name: Upload to Release
+        if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
           files: build/LInjector.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Commit Release
+        if: github.event_name != 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly-${{ steps.sha.outputs.short }}
+          name: ${{ steps.sha.outputs.short }}
+          body: Auto-built from commit ${{ github.sha }}
+          files: build/LInjector.exe
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
