@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build Single-File Executable
+        run: dotnet publish "LInjector/LInjector/LInjector.csproj" -r win-x64 -c Release --self-contained false -p:PublishSingleFile=true -p:DisableFody=false -p:IncludeNativeLibrariesForSelfExtract=true -o build
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/LInjector.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
