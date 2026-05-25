@@ -388,7 +388,7 @@
                                                         <Label Content="Developers" FontWeight="Bold" Foreground="{DynamicResource Text}" FontSize="16"/>
 
                                                         <ScrollViewer materialDesign:RippleAssist.IsDisabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" Focusable="False" materialDesign:ListBoxItemAssist.ShowSelection="False">
-                                                            <StackPanel>
+                                                            <StackPanel Margin="5 0 0 0">
                                                                 <StackPanel Orientation="Horizontal">
                                                                     <Image Width="100px" Height="100px" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" x:Name="devImageField"/>
                                                                     <StackPanel>
