@@ -1,96 +1,130 @@
 using LInjector.Classes;
+using LInjector.Pages.Popups;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace LInjector.Pages
 {
     public partial class MainView
     {
+        [DllImport("user32.dll")]
+        static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
+
         private static string regScriptValue = RegistryHandler.GetValue("ScriptListPath", "0");
         private static string ScriptListPath = string.IsNullOrEmpty(regScriptValue) ? Path.Combine(Strings.Get("AppRoot"), "scripts") : regScriptValue;
+
+        public class ScriptListItem
+        {
+            public string? FileName { get; set; }
+            public bool? IsFavourite { get; set; }
+        }
 
         private void ScriptSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) => RefreshScriptList();
 
         public void RefreshScriptList()
         {
-            NormalStandaloneScriptsHolder.Items.Clear();
+            if (!Directory.Exists(ScriptListPath)) return;
 
-            string searchQuery = ScriptSearchBox.Text.ToLower();
+            string searchQuery = ScriptSearchBox.Text?.ToLower() ?? "";
             DirectoryInfo scriptsFolder = new(ScriptListPath);
 
-            foreach (FileInfo script in scriptsFolder.GetFiles())
-            {
-                string fileName = script.Name;
-                if (fileName.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase))
+            var favToken = SettingsWrapper.Read("favourited_scripts") as JArray;
+            var favList = favToken?.Select(t => t.ToString()).ToList() ?? new List<string>();
+
+            var items = scriptsFolder.GetFiles()
+                .Select(f => new ScriptListItem
                 {
-                    NormalStandaloneScriptsHolder.Items.Add(fileName);
-                }
-            }
+                    FileName = f.Name,
+                    IsFavourite = favList.Contains(f.Name)
+                })
+                .Where(item => string.IsNullOrEmpty(searchQuery) || item.FileName!.ToLower().Contains(searchQuery))
+                .OrderByDescending(item => item.IsFavourite)
+                .ThenBy(item => item.FileName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            NormalStandaloneScriptsHolder.ItemsSource = items;
 
             var dir = new DirectoryInfo(ScriptListPath);
-            if (dir.FullName.Contains(Strings.Get("AppRoot")))
-                ScriptDirLabel.Content = $"root/{dir.Name}";
-            else
-                ScriptDirLabel.Content = dir.Name;
+            ScriptDirLabel.Content = dir.FullName.Contains(Strings.Get("AppRoot")) ? $"root/{dir.Name}" : dir.Name;
         }
 
         private void NormalStandaloneScriptsHolder_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(ScriptListPath))
-            {
-                DirectoryInfo ScriptsFolder = new(ScriptListPath);
-                FileInfo[] Files = ScriptsFolder.GetFiles("*.*");
-                foreach (FileInfo Script in Files)
-                {
-                    NormalStandaloneScriptsHolder.Items.Add(Script.Name);
-                }
-
-                ScriptDirLabel.Content = new DirectoryInfo(ScriptListPath).Name;
-            }
-            else
+            if (!Directory.Exists(ScriptListPath))
             {
                 ScriptListPath = Path.Combine(Strings.Get("AppRoot"), "scripts");
-
-                if (!Directory.Exists(ScriptListPath))
-                {
-                    Directory.CreateDirectory(ScriptListPath);
-                    File.WriteAllText(Path.Combine(ScriptListPath, "example.lua"), "print(\"LInjector v3, yay!\")");
-
-                    RefreshScriptList();
-                }
+                Directory.CreateDirectory(ScriptListPath);
+                File.WriteAllText(Path.Combine(ScriptListPath, "example.lua"), "print(\"LInjector v3, yay!\")");
             }
+            RefreshScriptList();
         }
 
         private void NormalStandaloneScriptsHolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                if (TabSystem_.maintabs.Items.Count != 0)
+                if (NormalStandaloneScriptsHolder.SelectedItem is ScriptListItem selectedScript)
                 {
-                    if (this.NormalStandaloneScriptsHolder.SelectedIndex != -1)
-                    {
-                        string scriptfolder = ScriptListPath;
-                        object selectedItem = NormalStandaloneScriptsHolder.SelectedItem;
-                        if (this.NormalStandaloneScriptsHolder.Items.Count != 0)
-                        {
-                            TabSystem_.ChangeCurrentTabTitle(selectedItem.ToString()!);
-                            TabSystem_.CurrentMonaco()!.SetText(File.ReadAllText(scriptfolder + "\\" + (selectedItem?.ToString())));
-                        }
-                    }
-                }
-                else
-                {
-                    string scriptfolder = ScriptListPath;
-                    object selectedItem = NormalStandaloneScriptsHolder.SelectedItem;
-                    TabSystem_.Add_tab_with_text(File.ReadAllText(scriptfolder + "\\" + (selectedItem?.ToString())), selectedItem!.ToString());
-                }
+                    string scriptPath = Path.Combine(ScriptListPath, selectedScript.FileName!);
+                    if (!File.Exists(scriptPath)) return;
 
-                TabSystem_.Focus();
+                    string content = File.ReadAllText(scriptPath);
+                    if (TabSystem_.maintabs.Items.Count == 0)
+                        TabSystem_.Add_tab_with_text(content, selectedScript.FileName);
+                    else
+                    {
+                        TabSystem_.ChangeCurrentTabTitle(selectedScript.FileName!);
+                        TabSystem_.CurrentMonaco()?.SetText(content);
+                    }
+                    TabSystem_.Focus();
+                }
                 NormalStandaloneScriptsHolder.SelectedItem = null;
             }
             catch { }
+        }
+
+        private void ToggleFavouriteItem(FrameworkElement bozo) => bozo.Tag = bozo.Tag?.ToString()?.Contains("favourite") == true ? null : "favourite";
+
+        private void Item_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void Item_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            var item = sender as ListBoxItem;
+            if (item?.DataContext is ScriptListItem scriptItem)
+            {
+                string action = (bool)scriptItem.IsFavourite! ? "Unfavourite" : "Favourite";
+
+                var options = new[]
+                {
+            new LIContextMenuStrip.MenuItemOption(action, "\ue734", (s, ev) =>
+            {
+                var favToken = SettingsWrapper.Read("favourited_scripts") as JArray;
+                var favList = favToken?.Select(t => t.ToString()).ToList() ?? new List<string>();
+
+                if ((bool)scriptItem.IsFavourite!)
+                    favList.Remove(scriptItem.FileName!);
+                else
+                    favList.Add(scriptItem.FileName!);
+
+                SettingsWrapper.Write("favourited_scripts", JArray.FromObject(favList));
+
+                RefreshScriptList();
+            })
+        };
+
+                System.Drawing.Point defPnt = new();
+                GetCursorPos(ref defPnt);
+                LIContextMenuStrip.ShowMenu(defPnt, options);
+            }
         }
 
         private void ChangeScriptListFolder(object sender, RoutedEventArgs e)
@@ -159,7 +193,7 @@ namespace LInjector.Pages
             {
                 var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
-                    Title = $"Open Script Files | {Strings.Get("AppVersion")}",
+                    Title = $"Open Script Files | {Strings.Get("AppName")}",
                     Filter = "Script Files (*.txt;*.lua;*.luau)|*.txt;*.lua;*.luau|All files (*.*)|*.*",
                     Multiselect = false
                 };

@@ -124,6 +124,7 @@ namespace LInjector.Pages
         {
             string[] ArrayTitles = {
                 "LInjector",
+                "Linn J. Hector",
                 "x64dbg",
                 "IDA Freeware",
                 "HxD Editor",
@@ -171,6 +172,12 @@ namespace LInjector.Pages
 
                 switch (currentDragButton)
                 {
+                    case "HoldToResizeAuxGrid":
+                        double factor = 1.0 / this.ActualWidth;
+                        currentValue += deltaX * factor * 100;
+                        currentValue = Math.Max(140.0, Math.Min(200.0, currentValue));
+                        ScriptListDimensions.Width = new GridLength(currentValue, GridUnitType.Star);
+                        break;
                     case "WindowOpacityDragDrop":
                         currentValue += deltaX * 0.007;
                         currentValue = Math.Max(0.1, Math.Min(1.0, currentValue));

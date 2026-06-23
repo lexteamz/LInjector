@@ -76,14 +76,14 @@ namespace LInjector.Classes
             {
                 "show_scriptlist", new
                 {
-                    value = false,
+                    value = true,
                     description = "Show the Script List"
                 }
             },
             {
                 "show_internalconsole", new
                 {
-                    value = false,
+                    value = true,
                     description = "Show the LInjector Console"
                 }
             },
@@ -113,6 +113,13 @@ namespace LInjector.Classes
                 {
                     value = false,
                     description = "Gradient only uses the topbar space"
+                }
+            },
+            {
+                "disable_ellipse", new
+                {
+                    value = false,
+                    description = "Disable glowing gradient at the top bar"
                 }
             },
             {

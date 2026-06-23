@@ -1,9 +1,7 @@
 ﻿using LInjector.Classes;
-using System.Net.Http;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Button = System.Windows.Controls.Button;
 using Cursors = System.Windows.Input.Cursors;
@@ -15,9 +13,30 @@ namespace LInjector.Pages
     /// </summary>
     public partial class MainView
     {
+        public ICommand? SaveCommand { get; }
+        public ICommand? SaveAsCommand { get; }
+        public ICommand? CloseTabCommand { get; }
+        public ICommand? NewTabCommand { get; }
+        public ICommand? OpenFileCommand { get; }
+
         public MainView()
         {
             InitializeComponent();
+
+            SaveCommand = new RelayCommand(_ => Show_SaveToFileDialog());
+            SaveAsCommand = new RelayCommand(_ => Show_SaveToFileDialog());
+            CloseTabCommand = new RelayCommand(_ =>
+            {
+                if (TabSystem_.maintabs.SelectedItem is TabItem tabitem && tabitem.Content is MonacoApi webView)
+                {
+                    webView.Dispose();
+                    TabSystem_.maintabs.Items.Remove(tabitem);
+                }
+            });
+            NewTabCommand = new RelayCommand(_ => TabSystem_.maintabs.Items.Add(TabSystem_.CreateTab("", $"Script {TabSystem_.maintabs.Items.Count + 1}.lua")));
+            OpenFileCommand = new RelayCommand(_ => Show_OpenFileDialog());
+
+            DataContext = this;
         }
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)

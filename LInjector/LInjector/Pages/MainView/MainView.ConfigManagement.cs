@@ -58,6 +58,9 @@ namespace LInjector.Pages
                 }
             }
 
+            // Disable/Enable ellipse blur effect
+            mango_ellipse.Visibility = (bool)SettingsWrapper.Read("disable_ellipse") ? Visibility.Collapsed : Visibility.Visible;
+
             // Hide from Capture
             Shared.SetWindowCaptureProtection(new System.Windows.Interop.WindowInteropHelper(Shared.mainWindow!).Handle, (bool)SettingsWrapper.Read("hide_capture"));
 
@@ -65,14 +68,14 @@ namespace LInjector.Pages
             Shared.mainWindow!.Topmost = (bool)(SettingsWrapper.Read("top_most"));
 
             // Show Script List
-            Shared.mainView!.ScriptListDimensions.Width = ((bool)SettingsWrapper.Read("show_scriptlist")) ? new System.Windows.GridLength(120, System.Windows.GridUnitType.Star) : new System.Windows.GridLength(0, System.Windows.GridUnitType.Pixel);
+            Shared.mainView!.ScriptListDimensions.Width = ((bool)SettingsWrapper.Read("show_scriptlist")) ? new System.Windows.GridLength(145, System.Windows.GridUnitType.Star) : new System.Windows.GridLength(0, System.Windows.GridUnitType.Pixel);
 
             // Show Logs
             bool showConsole = (bool)SettingsWrapper.Read("show_internalconsole");
 
             // Configure console dimensions
             Shared.mainView.LInjectorConsoleDimensions.Height = new System.Windows.GridLength(
-                showConsole ? 140 : 0,
+                showConsole ? 80 : 0,
                 showConsole ? System.Windows.GridUnitType.Star : System.Windows.GridUnitType.Pixel
             );
 
@@ -128,6 +131,10 @@ namespace LInjector.Pages
 
             foreach (var x in config!)
             {
+                string[] toIgnore = { "favourited_scripts" };
+                if (toIgnore.Any(k => x.Key.Contains(k)))
+                    return;
+
                 switch (SettingsWrapper.Read(x.Key))
                 {
                     case JValue boolValue when boolValue.Type == JTokenType.Boolean:

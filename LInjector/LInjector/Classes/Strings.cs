@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace LInjector.Classes
 {
@@ -11,10 +9,11 @@ namespace LInjector.Classes
         private static readonly Dictionary<string, string> values = new()
         {
             { "AppName", "LInjector" },
-            { "AppVersion", "v3.3"},
+            { "AppVersion", "v3.4"},
             { "Saved", Path.Combine(appRoot, "Saved Content") },
             { "AppRoot", appRoot },
             { "GitHubURL", "https://github.com/lexteamz/LInjector" },
+            { "CodebergURL", "https://codeberg.org/lexteamz/LInjector" },
             { "GitHubUsername", "lexteamz" },
             { "GitHubRepoName", "LInjector" },
             { "DiscordServerURL", "https://discord.com/invite/NQY28YSVAb" },
