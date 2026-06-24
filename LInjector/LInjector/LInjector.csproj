@@ -67,7 +67,6 @@
 
   <ItemGroup>
 	<None Remove="LInjector.ico" />
-	<None Remove="Resources\animated_spritesheet.png" />
 	<None Remove="Resources\depso.png" />
 	<None Remove="Resources\Excel.png" />
 	<None Remove="Resources\Icons\Attach.png" />
@@ -86,7 +85,6 @@
 
   <ItemGroup>
 	<EmbeddedResource Include="LInjector.ico" />
-	<Resource Include="Resources\animated_spritesheet.png" />
 	<Resource Include="Resources\depso.png">
 	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	</Resource>
