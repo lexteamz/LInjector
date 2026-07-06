@@ -35,8 +35,8 @@ LInjector uses the Monaco editor, the same one that powers Visual Studio Code, w
 > * Do not download LInjector from unofficial links, YouTube descriptions, or external websites.
 > * Only trust releases published directly by @itzzexcel or within the @lexteamz organization.
 > * Always verify that the repository URL in your browser is exactly:
-  * - https://github.com/lexteamz/LInjector
-    - The website linked in this repository is also the only official website of lexteamz.
+>   * https://github.com/lexteamz/LInjector
+>   * The website linked in this repository is also the only official website of lexteamz.
 
 ## Screenshots
 <table style="table-layout:fixed; width:100%;">
