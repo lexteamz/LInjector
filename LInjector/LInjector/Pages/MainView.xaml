@@ -174,7 +174,7 @@
                                             </ScrollViewer>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="Window Customisation">
+                                    <TabItem Header="Colour Customisation">
                                         <Border Margin="5 10" BorderBrush="{DynamicResource SecondaryText}" BorderThickness="0.1" CornerRadius="5">
                                             <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" materialDesign:RippleAssist.IsDisabled="True" materialDesign:ListBoxItemAssist.ShowSelection="False" Margin="5" Template="{DynamicResource CleanOverlayTemplate}">
                                                 <StackPanel>

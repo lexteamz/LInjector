@@ -3,6 +3,7 @@ using LInjector.Windows;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +15,9 @@ namespace LInjector.Pages
 {
     public partial class MainView
     {
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        static extern bool MoveFileEx(string lpExistingFileName, string? lpNewFileName, uint dwFlags);
+
         DispatcherTimer TitleTimer = new DispatcherTimer();
         DispatcherTimer bozoTimer = new DispatcherTimer();
         DispatcherTimer Discordtimer = new DispatcherTimer(DispatcherPriority.Background);
@@ -297,21 +301,45 @@ namespace LInjector.Pages
         public void OnCloseFadeoutCompleted(object sender, EventArgs e)
         {
             Shared.mainWindow!.Close();
-            Application.Current.Shutdown();
 
             try
             {
-                string? webViewCacheDir = TabSystem_.CurrentMonaco()!.CoreWebView2.Environment.UserDataFolder;
-                var webViewProcessId = Convert.ToInt32(TabSystem_.CurrentMonaco()!.CoreWebView2.BrowserProcessId);
-                var webViewProcess = Process.GetProcessById(webViewProcessId);
+                string? cacheDir = TabSystem_.CurrentMonaco()!.CoreWebView2.Environment.UserDataFolder;
+                int browserPid = Convert.ToInt32(TabSystem_.CurrentMonaco()!.CoreWebView2.BrowserProcessId);
 
                 TabSystem_.CurrentMonaco()!.Dispose();
-                webViewProcess.WaitForExit(3000);
 
-                Directory.Delete(webViewCacheDir, true);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "taskkill",
+                    Arguments = "/F /IM msedgewebview2.exe",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                })?.WaitForExit(3000);
+
+                bool deleted = false;
+                for (int i = 0; i < 5; i++)
+                {
+                    try
+                    {
+                        if (Directory.Exists(cacheDir))
+                            Directory.Delete(cacheDir, true);
+                        deleted = true;
+                        break;
+                    }
+                    catch { Thread.Sleep(600); }
+                }
+
+                if (!deleted && Directory.Exists(cacheDir))
+                {
+                    MoveFileEx(cacheDir, null, 0x4);
+                }
             }
             catch { }
+
+            Application.Current.Shutdown();
         }
+
 
         private async void ContextMenuClick(object sender, RoutedEventArgs e)
         {

@@ -27,6 +27,17 @@ LInjector is an open-source interface for developers, designed to be minimal and
 If you have a working Dynamic-Link Library (DLL), you can edit the source code of LInjector and make it work by yourself in any other way. <br>
 LInjector uses the Monaco editor, the same one that powers Visual Studio Code, with syntax highlighting, developed by Krnl [and edited by Depso](https://github.com/depthso).
 
+> [!WARNING]
+> ### Important: Impersonation campaigns
+>
+> This is the only official repository for LInjector. Malicious actors are currently using AI-generated social media videos, fake GitHub forks, and bot-inflated stars to distribute malware under our name. 
+> 
+> * Do not download LInjector from unofficial links, YouTube descriptions, or external websites.
+> * Only trust releases published directly by @itzzexcel or within the @lexteamz organization.
+> * Always verify that the repository URL in your browser is exactly:
+  * - https://github.com/lexteamz/LInjector
+    - The website linked in this repository is also the only official website of lexteamz.
+
 ## Screenshots
 <table style="table-layout:fixed; width:100%;">
   <tr>
