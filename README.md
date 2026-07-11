@@ -33,7 +33,7 @@ LInjector uses the Monaco editor, the same one that powers Visual Studio Code, w
 > This is the only official repository for LInjector. Malicious actors are currently using AI-generated social media videos, fake GitHub forks, and bot-inflated stars to distribute malware under our name. 
 > 
 > * Do not download LInjector from unofficial links, YouTube descriptions, or external websites.
-> * Only trust releases published directly by @itzzexcel or within the @lexteamz organization.
+> * Only trust releases published directly by @itzzexcel or within the @lexteamz organisation.
 > * Always verify that the repository URL in your browser is exactly:
 >   * https://github.com/lexteamz/LInjector
 >   * The website linked in this repository is also the only official website of lexteamz.
