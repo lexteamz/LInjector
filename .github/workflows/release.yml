@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'call_recompile')
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'call_recompile') || contains(github.event.head_commit.message, 'call_recompile_release')
 
     steps:
       - name: Checkout
@@ -23,10 +23,20 @@ jobs:
         id: sha
         run: echo "short=$($env:GITHUB_SHA.Substring(0, 7))" >> $env:GITHUB_OUTPUT
 
-      - name: Setup .NET 9
+      - name: Get Project Version (3 digits)
+        id: version
+        run: |
+          $xml = [xml](Get-Content "LInjector/LInjector/LInjector.csproj")
+          $fullVersion = $xml.Project.PropertyGroup.Version
+          # Remove the last digit (4th digit) to get 3 digits
+          $versionParts = $fullVersion.Split('.')
+          $shortVersion = "$($versionParts[0]).$($versionParts[1]).$($versionParts[2])"
+          echo "version=$shortVersion" >> $env:GITHUB_OUTPUT
+
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Build Single-File Executable
         run: dotnet publish "LInjector/LInjector/LInjector.csproj" -r win-x64 -c Release --self-contained false -p:PublishSingleFile=true -p:DisableFody=false -p:IncludeNativeLibrariesForSelfExtract=true -o build
@@ -39,14 +49,26 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Commit Release
-        if: github.event_name != 'release'
+      - name: Create Commit Release (Prerelease)
+        if: github.event_name != 'release' && contains(github.event.head_commit.message, 'call_recompile') && !contains(github.event.head_commit.message, 'call_recompile_release')
         uses: softprops/action-gh-release@v2
         with:
           tag_name: nightly-${{ steps.sha.outputs.short }}
-          name: ${{ steps.sha.outputs.short }}
+          name: nightly-${{ steps.sha.outputs.short }}
           body: Auto-built from ${{ steps.sha.outputs.short }}
           files: build/LInjector.exe
           prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Commit Release (Full Release)
+        if: github.event_name != 'release' && contains(github.event.head_commit.message, 'call_recompile_release')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          body: Release v${{ steps.version.outputs.version }} - Built from ${{ steps.sha.outputs.short }}
+          files: build/LInjector.exe
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
