@@ -23,12 +23,11 @@ jobs:
         id: sha
         run: echo "short=$($env:GITHUB_SHA.Substring(0, 7))" >> $env:GITHUB_OUTPUT
 
-      - name: Get Project Version (3 digits)
+      - name: Get Project Version
         id: version
         run: |
           $xml = [xml](Get-Content "LInjector/LInjector/LInjector.csproj")
-          $fullVersion = $xml.Project.PropertyGroup.Version
-          # Remove the last digit (4th digit) to get 3 digits
+          $fullVersion = $xml.Project.PropertyGroup | Where-Object { $_.Version -ne $null } | Select-Object -First 1 | ForEach-Object { $_.Version }
           $versionParts = $fullVersion.Split('.')
           $shortVersion = "$($versionParts[0]).$($versionParts[1]).$($versionParts[2])"
           echo "version=$shortVersion" >> $env:GITHUB_OUTPUT
