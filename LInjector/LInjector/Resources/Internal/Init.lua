@@ -13,4 +13,4 @@ if linjector then
 	return 
 end
 getgenv()["linjector"] = true
-loadstring(game:HttpGet("https://raw.githubusercontent.com/LExteamz/LInjector/master/Redistributables/Lua%20Scripts/Init.lua"))() 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/lexteamz/LInjector/master/Redistributables/Lua%20Scripts/Init.lua"))() 

@@ -1,7 +1,4 @@
-﻿using LInjector.Pages;
-using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace LInjector.Classes
 {
@@ -27,7 +24,6 @@ namespace LInjector.Classes
         }
     }
 
-    // Sobrecarga sin parámetros (más cómoda para tus métodos)
     public class RelayCommand<T> : ICommand
     {
         private readonly Action<T> _execute;

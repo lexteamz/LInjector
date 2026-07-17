@@ -53,6 +53,13 @@ namespace LInjector.Classes
                 }
             },
             {
+                "folk_valley", new
+                {
+                    value = true,
+                    description = $"Folk Valley"
+                }
+            },
+            {
                 "hide_capture", new
                 {
                     value = false,

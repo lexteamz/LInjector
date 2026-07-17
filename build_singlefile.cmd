@@ -8,7 +8,7 @@ echo [1/4] Cleaning previous builds
 if exist "%BUILD_FOLDER%" rd /S /Q "%BUILD_FOLDER%"
 if exist "%TEMP_PUB%" rd /S /Q "%TEMP_PUB%"
 
-echo [2/4] Publishing Single-File .NET 9 Executable
+echo [2/4] Publishing Single-File .NET 10 Executable
 dotnet publish "%PROJECT_PATH%" -r win-x64 -c Release --self-contained false -p:PublishSingleFile=true -p:DisableFody=false -p:IncludeNativeLibrariesForSelfExtract=true -o "%TEMP_PUB%"
 
 if exist "%TEMP_PUB%\LInjector.exe" (

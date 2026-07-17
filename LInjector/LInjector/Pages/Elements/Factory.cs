@@ -19,6 +19,7 @@ namespace LInjector.Pages.Elements
     public class Factory
     {
         private readonly StackPanel _container;
+        private readonly string[] disabled_keys = { "app_init", "folk_valley" };
 
         public Factory(StackPanel container)
         {
@@ -27,6 +28,7 @@ namespace LInjector.Pages.Elements
 
         public void CreateToggleOption(Delegate callback, object defaultValue, string key, string toolTipContent = "")
         {
+
             var grid = CreateGridWithConnectingLine();
             var label = CreateLabel(SettingsWrapper.ReadDescription(key)!);
             var toggle = new ToggleButton { Margin = new Thickness(0, 0, 10, 0) };
@@ -47,7 +49,7 @@ namespace LInjector.Pages.Elements
                 SettingsWrapper.Write(key, false);
             };
 
-            toggle.IsEnabled = !key.Contains("app_init");
+            toggle.IsEnabled = !disabled_keys.Contains(key);
 
             Grid.SetColumn(label, 0);
             Grid.SetColumn(toggle, 2);
@@ -82,7 +84,10 @@ namespace LInjector.Pages.Elements
 
             checkbox.Click += Shared.mainView!.ApplyConfig;
 
-            checkbox.IsEnabled = !key.Contains("app_init");
+            if (key == "folk_valley")
+                label.Content += $" v{new Random().Next(2, 6)}";
+
+            checkbox.IsEnabled = !disabled_keys.Contains(key);
 
             Grid.SetColumn(label, 0);
             Grid.SetColumn(checkbox, 2);

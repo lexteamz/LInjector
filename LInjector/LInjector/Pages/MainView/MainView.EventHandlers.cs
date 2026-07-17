@@ -176,12 +176,6 @@ namespace LInjector.Pages
 
                 switch (currentDragButton)
                 {
-                    case "HoldToResizeAuxGrid":
-                        double factor = 1.0 / this.ActualWidth;
-                        currentValue += deltaX * factor * 100;
-                        currentValue = Math.Max(140.0, Math.Min(200.0, currentValue));
-                        ScriptListDimensions.Width = new GridLength(currentValue, GridUnitType.Star);
-                        break;
                     case "WindowOpacityDragDrop":
                         currentValue += deltaX * 0.007;
                         currentValue = Math.Max(0.1, Math.Min(1.0, currentValue));
@@ -304,42 +298,32 @@ namespace LInjector.Pages
 
             try
             {
-                string? cacheDir = TabSystem_.CurrentMonaco()!.CoreWebView2.Environment.UserDataFolder;
-                int browserPid = Convert.ToInt32(TabSystem_.CurrentMonaco()!.CoreWebView2.BrowserProcessId);
+                string cacheDir = Path.Combine(Strings.Get("AppRoot"), $"{Strings.Get("AppName")}.exe.WebView2");
 
-                TabSystem_.CurrentMonaco()!.Dispose();
+                foreach (var i in TabSystem_.maintabs.Items)
+                    (i as MonacoApi)?.Dispose();
+                TabSystem_.maintabs.Items.Clear();
 
-                Process.Start(new ProcessStartInfo
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                try
                 {
-                    FileName = "taskkill",
-                    Arguments = "/F /IM msedgewebview2.exe",
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden
-                })?.WaitForExit(3000);
-
-                bool deleted = false;
-                for (int i = 0; i < 5; i++)
-                {
-                    try
-                    {
-                        if (Directory.Exists(cacheDir))
-                            Directory.Delete(cacheDir, true);
-                        deleted = true;
-                        break;
-                    }
-                    catch { Thread.Sleep(600); }
+                    if (Directory.Exists(cacheDir))
+                        Directory.Delete(cacheDir, true);
                 }
-
-                if (!deleted && Directory.Exists(cacheDir))
+                catch
                 {
-                    MoveFileEx(cacheDir, null, 0x4);
+                    foreach (var p in Process.GetProcessesByName("msedgewebview2"))
+                        try { p.Kill(); p.WaitForExit(2000); } catch { }
+                    Thread.Sleep(1000);
+                    try { Directory.Delete(cacheDir, true); } catch { }
                 }
             }
             catch { }
 
             Application.Current.Shutdown();
         }
-
 
         private async void ContextMenuClick(object sender, RoutedEventArgs e)
         {
